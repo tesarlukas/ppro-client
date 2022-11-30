@@ -5,7 +5,7 @@ import TextField from './components/TextField';
 
 const App: React.FC = () => {
     return (
-        <div className='App'>
+        <div className='App font-bold text-green-200'>
             <TextField text='Random text inside of textfield' />
         </div>
     );
