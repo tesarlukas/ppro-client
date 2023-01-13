@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {FilmWork} from '../model/Interface';
+import {FilmWork} from '../shared/types';
 import FilmWorkCard from './FilmWorkCard';
 
 export const LatestMovies: React.FC = () => {
@@ -15,7 +15,7 @@ export const LatestMovies: React.FC = () => {
 
                 if (data === undefined) throw new Error('failed to cast data from the response!');
                 
-                setLatestMovies(data)
+                setLatestMovies(data);
 
             });
 
@@ -23,13 +23,13 @@ export const LatestMovies: React.FC = () => {
 
     useEffect(() => {
         getLatestMovies();
-    },[])
+    },[]);
 
 
     return <div className='flex flex-row justify-between'>
         {
             latestMovies.map((value: FilmWork) => {
-                return <FilmWorkCard key={value.id} filmwork={value}/>
+                return <FilmWorkCard key={value.id} filmwork={value}/>;
             })
         }
     </div>;
