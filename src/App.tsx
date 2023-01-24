@@ -7,6 +7,8 @@ import Error from './routes/Error';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Login from './routes/Login';
 import Register from './routes/Register';
+import FilmWorks from './routes/FilmWorks';
+import FilmWork from './routes/FilmWork';
 
 const App: React.FC = () => {
     return (
@@ -17,6 +19,12 @@ const App: React.FC = () => {
                         <h1 className="text-black">Movie Database</h1>
                     </Link>
                     <nav>
+                        <Link
+                            className="text-black p-2 text-lg"
+                            to="/filmworks"
+                        >
+                            Listing
+                        </Link>
                         <Link className="text-black p-2 text-lg" to="/login">
                             Login
                         </Link>
@@ -28,6 +36,8 @@ const App: React.FC = () => {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/filmworks" element={<FilmWorks />} />
+                    <Route path="/filmwork/:id" element={<FilmWork />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="*" element={<Error />} />
                 </Routes>
