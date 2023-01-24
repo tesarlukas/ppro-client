@@ -9,35 +9,20 @@ import Login from './routes/Login';
 import Register from './routes/Register';
 import FilmWorks from './routes/FilmWorks';
 import FilmWork from './routes/FilmWork';
+import Person from './routes/Person';
+import Header from './components/Header';
 
 const App: React.FC = () => {
     return (
         <div className="App">
             <Router>
-                <header className="flex bg-white w-screen h-24 justify-between items-center p-4">
-                    <Link to="/">
-                        <h1 className="text-black">Movie Database</h1>
-                    </Link>
-                    <nav>
-                        <Link
-                            className="text-black p-2 text-lg"
-                            to="/filmworks"
-                        >
-                            Listing
-                        </Link>
-                        <Link className="text-black p-2 text-lg" to="/login">
-                            Login
-                        </Link>
-                        <Link className="text-black p-2 text-lg" to="/register">
-                            Register
-                        </Link>
-                    </nav>
-                </header>
+                <Header />
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/filmworks" element={<FilmWorks />} />
                     <Route path="/filmwork/:id" element={<FilmWork />} />
+                    <Route path="/person/:id" element={<Person />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="*" element={<Error />} />
                 </Routes>

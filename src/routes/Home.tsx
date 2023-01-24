@@ -3,7 +3,11 @@ import '../styles/App.css';
 import '../components/TextField';
 
 const Home: React.FC = () => {
-    return <></>;
+    return (
+        <>
+            <h1>HOME</h1>
+        </>
+    );
 };
 
 export default Home;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import {
     FilmWork as FilmWorkType,
     GenreSimple,
@@ -37,10 +37,14 @@ const FilmWork: React.FC = () => {
             </div>
             <div>
                 {movie?.occupations.map((occupation: Occupation) => (
-                    <span key={occupation.id}>
-                        {occupation.person.firstName}{' '}
-                        {occupation.person.lastName},{' '}
-                    </span>
+                    <Link
+                        key={occupation.id}
+                        to={`/person/${occupation.person.id}`}
+                    >
+                        <span>
+                            {`${occupation.person.firstName} ${occupation.person.lastName}, `}
+                        </span>
+                    </Link>
                 ))}
             </div>
             <div>reviews</div>
