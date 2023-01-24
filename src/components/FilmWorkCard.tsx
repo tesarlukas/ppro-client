@@ -1,5 +1,5 @@
 import React from 'react';
-import {FilmWorkSimple, FilmWork} from '../model/Interface';
+import {FilmWork} from '../model/Interface';
 
 export const FilmWorkCard: React.FC<{filmwork: FilmWork}> = ({filmwork}) => {
 
