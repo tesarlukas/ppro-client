@@ -4,7 +4,7 @@ export interface FilmWork {
     criticsScore: number;
     audienceScore: number;
     genres: Array<GenreSimple>;
-    occupations: Array<OccupationSimple>;
+    occupations: Array<Occupation>;
     reviews: Array<ReviewSimple>;
 }
 
