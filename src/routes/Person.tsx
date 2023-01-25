@@ -4,7 +4,7 @@ import { Occupation, Page, Person as PersonType } from '../shared/types';
 import { Link } from 'react-router-dom';
 
 const Person = () => {
-    const { id } = useParams();
+    const { id } = useParams<string>();
     const [person, setPerson] = useState<PersonType>();
     const [occupations, setOccupations] = useState<Page<Occupation>>();
 
@@ -41,21 +41,25 @@ const Person = () => {
 
     return (
         <>
-            <div>
-                {person?.firstName} {person?.lastName}
-            </div>
-            <div>
-                {occupations?.content.map((occupation: Occupation) => {
-                    return (
-                        <span key={occupation.id}>
-                            <Link to={`/filmwork/${occupation.filmwork.id}`}>
-                                {occupation.filmwork.name + ' '}
-                            </Link>
-                            as
-                            {' ' + occupation.role}
-                        </span>
-                    );
-                })}
+            <div className="bg-slate-800">
+                <div>
+                    {person?.firstName} {person?.lastName}
+                </div>
+                <div>
+                    {occupations?.content.map((occupation: Occupation) => {
+                        return (
+                            <span key={occupation.id}>
+                                <Link
+                                    to={`/filmwork/${occupation.filmwork.id}`}
+                                >
+                                    {occupation.filmwork.name + ' '}
+                                </Link>
+                                as
+                                {' ' + occupation.role}
+                            </span>
+                        );
+                    })}
+                </div>
             </div>
         </>
     );

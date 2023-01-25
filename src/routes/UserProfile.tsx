@@ -21,7 +21,7 @@ const UserProfile: React.FC = () => {
         getUser();
     }, []);
 
-    return <div>{user?.username}</div>;
+    return <div className="bg-slate-800">{user?.username}</div>;
 };
 
 export default UserProfile;

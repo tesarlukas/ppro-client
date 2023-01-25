@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { FaStar } from 'react-icons/fa';
 import { Link, useParams } from 'react-router-dom';
 import {
     FilmWork as FilmWorkType,
@@ -27,30 +28,43 @@ const FilmWork: React.FC = () => {
     }, []);
 
     return (
-        <div className="bg-slate-200 max-w-xl">
-            <div>{movie?.name}</div>
-            <div>{movie?.audienceScore}</div>
-            <div>{movie?.criticsScore}</div>
-            <div>
-                {movie?.genres.map((genre: GenreSimple) => (
-                    <span key={genre.id}>{genre.name}</span>
-                ))}
+        <>
+            <div className="flex flex-row justify-center mt-24">
+                <div className="bg-slate-800 p-12 flex flex-col ">
+                    <div className="flex flex-row justify-between">
+                        <h1 className="text-5xl">{movie?.name}</h1>
+
+                        <div className="text-5xl flex">
+                            {movie?.audienceScore}/10{' '}
+                            <FaStar className="bg text-yellow-500 ml-2" />
+                        </div>
+                    </div>
+                    <div>
+                        Genres:{' '}
+                        {movie?.genres.map((genre: GenreSimple) => (
+                            <span key={genre.id}>{genre.name}</span>
+                        ))}
+                    </div>
+                    <div>
+                        Cast:{' '}
+                        {movie?.occupations.map((occupation: Occupation) => (
+                            <Link
+                                key={occupation.id}
+                                to={`/person/${occupation.person.id}`}
+                            >
+                                <span>
+                                    {`${occupation.person.firstName} ${occupation.person.lastName}, `}
+                                </span>
+                            </Link>
+                        ))}
+                    </div>
+                </div>
             </div>
-            <div>
-                {movie?.occupations.map((occupation: Occupation) => (
-                    <Link
-                        key={occupation.id}
-                        to={`/person/${occupation.person.id}`}
-                    >
-                        <span>
-                            {`${occupation.person.firstName} ${occupation.person.lastName}, `}
-                        </span>
-                    </Link>
-                ))}
+
+            <div className="flex flex-row">
+                <Reviews reviews={movie?.reviews} />
             </div>
-            <Reviews reviews={movie?.reviews} />
-            <div>reviews</div>
-        </div>
+        </>
     );
 };
 

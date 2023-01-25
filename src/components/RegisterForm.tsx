@@ -24,7 +24,7 @@ export const RegisterForm: React.FC = () => {
     };
 
     return (
-        <form onSubmit={handleOnSubmit} className="flex flex-col">
+        <form onSubmit={handleOnSubmit} className="flex flex-col bg-black">
             <h6>Username</h6>
             <TextField type="text" name="username" />
             <h6>E-mail</h6>
