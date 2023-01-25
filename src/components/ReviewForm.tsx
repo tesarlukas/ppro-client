@@ -3,18 +3,10 @@ import TextField from './TextField';
 import { ReviewFormData, ReviewFormInterface } from '../shared/types';
 import { useParams } from 'react-router-dom';
 
-const ReviewForm = () => {
+const ReviewForm: React.FC<{
+    createReview: (data: ReviewFormData) => Promise<Response>;
+}> = ({ createReview }) => {
     const { id } = useParams<any>();
-    const createReview = async (data: ReviewFormData): Promise<Response> => {
-        return fetch(`${import.meta.env.VITE_DEV_API_URL}api/v1/reviews`, {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        });
-    };
 
     const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -29,7 +21,6 @@ const ReviewForm = () => {
         };
 
         const res = await createReview(data);
-        console.log(res);
     };
 
     return (
@@ -39,13 +30,24 @@ const ReviewForm = () => {
                 className="flex flex-col bg-slate-800 p-4 rounded-xl mt-48"
             >
                 <h6>Score</h6>
-                <TextField type="text" name="score" />
+                <select className="bg-slate-600" name="score" id="cars">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
                 <h6>Comment</h6>
                 <TextField type="text" name="comment" />
                 <input
                     className="mt-4 border border-slate-300"
                     type="submit"
-                    value="Register"
+                    value="Create a review"
                 ></input>
             </form>
         </div>

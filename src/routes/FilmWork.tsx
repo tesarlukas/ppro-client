@@ -5,6 +5,7 @@ import {
     FilmWork as FilmWorkType,
     GenreSimple,
     Occupation,
+    ReviewFormData,
 } from '../shared/types';
 import Reviews from '../components/Reviews';
 import ReviewForm from '../components/ReviewForm';
@@ -22,6 +23,35 @@ const FilmWork: React.FC = () => {
             throw new Error('failed to cast data from the response!');
 
         setMovie(data);
+    };
+
+    const createReview = async (data: ReviewFormData): Promise<Response> => {
+        const res = await fetch(
+            `${import.meta.env.VITE_DEV_API_URL}api/v1/reviews`,
+            {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            },
+        );
+        getFilmWork();
+        return res;
+    };
+
+    const deleteReview = async (id: number): Promise<Response> => {
+        const res = await fetch(
+            `${import.meta.env.VITE_DEV_API_URL}api/v1/reviews/${id}`,
+            { method: 'DELETE' },
+        );
+        getFilmWork();
+        return res;
+    };
+
+    const handleDeleteReview = (id: number) => {
+        deleteReview(id);
     };
 
     useEffect(() => {
@@ -63,12 +93,14 @@ const FilmWork: React.FC = () => {
             </div>
 
             <div className="flex flex-row">
-                <Reviews reviews={movie?.reviews} />
+                <Reviews
+                    reviews={movie?.reviews}
+                    handleDelete={handleDeleteReview}
+                />
             </div>
 
             <div className="flex flex-row">
-                <Reviews reviews={movie?.reviews} />
-                <ReviewForm />
+                <ReviewForm createReview={createReview} />
             </div>
         </>
     );
