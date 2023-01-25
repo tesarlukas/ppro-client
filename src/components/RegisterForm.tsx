@@ -24,16 +24,25 @@ export const RegisterForm: React.FC = () => {
     };
 
     return (
-        <form onSubmit={handleOnSubmit} className="flex flex-col bg-black">
-            <h6>Username</h6>
-            <TextField type="text" name="username" />
-            <h6>E-mail</h6>
-            <TextField type="text" name="email" />
-            <h6>New password</h6>
-            <TextField type="password" name="password" />
-            <h6>New password again</h6>
-            <TextField type="password" name="passwordRepeat" />
-            <input type="submit" value="Register"></input>
-        </form>
+        <div className="">
+            <form
+                onSubmit={handleOnSubmit}
+                className="flex flex-col bg-slate-800 p-4 rounded-xl mt-48"
+            >
+                <h6>Username</h6>
+                <TextField type="text" name="username" />
+                <h6>E-mail</h6>
+                <TextField type="text" name="email" />
+                <h6>New password</h6>
+                <TextField type="password" name="password" />
+                <h6>New password again</h6>
+                <TextField type="password" name="passwordRepeat" />
+                <input
+                    className="mt-4 border border-slate-300"
+                    type="submit"
+                    value="Register"
+                ></input>
+            </form>
+        </div>
     );
 };

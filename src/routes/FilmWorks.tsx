@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FilmWork, Page } from '../shared/types';
 import FilmWorkCard from '../components/FilmWorkCard';
 import { Link } from 'react-router-dom';
+import FilterControls from '../components/FilterControls';
 
 export const FilmWorks: React.FC = () => {
     const [filmworks, setFilmWorks] = useState<Page<FilmWork>>();
@@ -23,15 +24,18 @@ export const FilmWorks: React.FC = () => {
     }, []);
 
     return (
-        <div className="flex flex-row flex-wrap gap-x-48 gap-y-48 pt-24 justify-center">
-            {filmworks?.content.map((value: FilmWork) => {
-                return (
-                    <Link key={value.id} to={`/filmwork/${value.id}`}>
-                        <FilmWorkCard filmwork={value} />
-                    </Link>
-                );
-            })}
-        </div>
+        <>
+            <FilterControls />
+            <div className="flex flex-row flex-wrap gap-x-48 gap-y-48 pt-24 justify-center">
+                {filmworks?.content.map((value: FilmWork) => {
+                    return (
+                        <Link key={value.id} to={`/filmwork/${value.id}`}>
+                            <FilmWorkCard filmwork={value} />
+                        </Link>
+                    );
+                })}
+            </div>
+        </>
     );
 };
 

@@ -20,12 +20,19 @@ export const LoginForm: React.FC = () => {
     };
 
     return (
-        <form onSubmit={handleOnSubmit} className="flex flex-col">
+        <form
+            onSubmit={handleOnSubmit}
+            className="flex flex-col bg-slate-800 p-4 rounded-xl mt-48"
+        >
             <h6>Username</h6>
             <TextField type="text" name="username" />
             <h6>Password</h6>
             <TextField type="password" name="password" />
-            <input type="submit" value="Login"></input>
+            <input
+                className="border border-slate-200 mt-4"
+                type="submit"
+                value="Login"
+            ></input>
         </form>
     );
 };

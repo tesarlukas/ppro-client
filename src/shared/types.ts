@@ -80,6 +80,18 @@ export interface LoginCredentials {
     password: string;
 }
 
+export interface ReviewFormInterface {
+    score: { value: number };
+    comment: { value: string };
+}
+
+export interface ReviewFormData {
+    score: number;
+    comment: string;
+    user: { id: number };
+    filmwork: { id: string | undefined };
+}
+
 export interface RegisterCredentials extends LoginCredentials {
     email: string;
 }

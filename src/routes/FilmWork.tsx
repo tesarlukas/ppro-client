@@ -7,6 +7,7 @@ import {
     Occupation,
 } from '../shared/types';
 import Reviews from '../components/Reviews';
+import ReviewForm from '../components/ReviewForm';
 
 const FilmWork: React.FC = () => {
     const { id } = useParams();
@@ -63,6 +64,11 @@ const FilmWork: React.FC = () => {
 
             <div className="flex flex-row">
                 <Reviews reviews={movie?.reviews} />
+            </div>
+
+            <div className="flex flex-row">
+                <Reviews reviews={movie?.reviews} />
+                <ReviewForm />
             </div>
         </>
     );
