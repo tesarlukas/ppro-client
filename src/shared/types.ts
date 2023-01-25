@@ -5,7 +5,7 @@ export interface FilmWork {
     audienceScore: number;
     genres: Array<GenreSimple>;
     occupations: Array<Occupation>;
-    reviews: Array<ReviewSimple>;
+    reviews: Array<Review>;
 }
 
 export interface Genre {
@@ -53,23 +53,16 @@ export interface UserSimple {
 }
 
 export interface User extends UserSimple {
-    reviews: Array<ReviewSimple>;
+    reviews: Array<Review>;
 }
 
 export interface Review {
+    id: number;
     user: User;
     date: Date;
     comment: string;
     score: number;
-    filmwork: FilmWork;
-}
-
-export interface ReviewSimple {
-    user_id: number;
-    date: Date;
-    comment: string;
-    score: number;
-    filmwork_id: number;
+    filmwork?: FilmWork;
 }
 
 export interface LoginFormInterface {

@@ -5,6 +5,7 @@ import {
     GenreSimple,
     Occupation,
 } from '../shared/types';
+import Reviews from '../components/Reviews';
 
 const FilmWork: React.FC = () => {
     const { id } = useParams();
@@ -47,6 +48,7 @@ const FilmWork: React.FC = () => {
                     </Link>
                 ))}
             </div>
+            <Reviews reviews={movie?.reviews} />
             <div>reviews</div>
         </>
     );

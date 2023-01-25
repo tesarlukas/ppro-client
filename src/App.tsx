@@ -11,6 +11,7 @@ import FilmWorks from './routes/FilmWorks';
 import FilmWork from './routes/FilmWork';
 import Person from './routes/Person';
 import Header from './components/Header';
+import UserProfile from './routes/UserProfile';
 
 const App: React.FC = () => {
     return (
@@ -23,6 +24,7 @@ const App: React.FC = () => {
                     <Route path="/filmworks" element={<FilmWorks />} />
                     <Route path="/filmwork/:id" element={<FilmWork />} />
                     <Route path="/person/:id" element={<Person />} />
+                    <Route path="/user/:id" element={<UserProfile />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="*" element={<Error />} />
                 </Routes>
