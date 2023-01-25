@@ -27,7 +27,7 @@ const FilmWork: React.FC = () => {
     }, []);
 
     return (
-        <>
+        <div className="bg-slate-200 max-w-xl">
             <div>{movie?.name}</div>
             <div>{movie?.audienceScore}</div>
             <div>{movie?.criticsScore}</div>
@@ -50,7 +50,7 @@ const FilmWork: React.FC = () => {
             </div>
             <Reviews reviews={movie?.reviews} />
             <div>reviews</div>
-        </>
+        </div>
     );
 };
 

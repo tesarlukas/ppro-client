@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export const Header: React.FC = () => {
     return (
-        <header className="flex bg-white w-screen h-24 justify-between items-center p-4">
+        <header className="flex bg-white w-screen h-24 justify-between items-center p-4 shadow-md">
             <Link to="/">
                 <h1 className="text-black">Movie Database</h1>
             </Link>

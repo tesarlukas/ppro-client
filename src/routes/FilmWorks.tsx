@@ -23,7 +23,7 @@ export const FilmWorks: React.FC = () => {
     }, []);
 
     return (
-        <div className="flex flex-row justify-between">
+        <div className="flex flex-row flex-wrap gap-x-48 gap-y-48 pt-24 justify-center">
             {filmworks?.content.map((value: FilmWork) => {
                 return (
                     <Link key={value.id} to={`/filmwork/${value.id}`}>

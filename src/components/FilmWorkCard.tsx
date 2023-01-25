@@ -1,12 +1,33 @@
 import React from 'react';
-import {FilmWork} from '../model/Interface';
+import { FilmWork, GenreSimple } from '../shared/types';
 
-export const FilmWorkCard: React.FC<{filmwork: FilmWork}> = ({filmwork}) => {
-
-    return <div className='bg-teal-400 flex flex-col justify-center items-center h-48 w-40'>
-        <h2 className='font-bold p-4 text-xl'>{filmwork.name}</h2>
-        <h3 className='p-4'>{filmwork.audienceScore} / 10</h3>
-    </div>;
+export const FilmWorkCard: React.FC<{ filmwork: FilmWork }> = ({
+    filmwork,
+}) => {
+    return (
+        <div className="bg-gray-900 flex flex-col h-96 w-64 rounded-xl shadow-xl hover:-translate-y-1 transition ease-out hover:scale-105">
+            <img
+                src="assets/images/movie.jpg"
+                className="h-64 object-cover rounded-t-xl"
+            />
+            <div className="flex flex-col py-3">
+                <h2 className="font-bold px-4 py-1 text-xl">{filmwork.name}</h2>
+                <h3 className="font-bold px-4 py-1">
+                    {filmwork.genres.map((genre: GenreSimple) => {
+                        return (
+                            <span key={genre.id}>
+                                {genre.name}
+                                {genre.id !== filmwork.genres.length
+                                    ? ', '
+                                    : ''}
+                            </span>
+                        );
+                    })}
+                </h3>
+                <h3 className="px-4 py-2">{filmwork.audienceScore} / 10</h3>
+            </div>
+        </div>
+    );
 };
 
 export default FilmWorkCard;

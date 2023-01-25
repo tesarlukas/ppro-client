@@ -1,5 +1,5 @@
 import React from 'react';
-import { Page, Review } from '../shared/types';
+import { Review } from '../shared/types';
 import { Link } from 'react-router-dom';
 
 const Reviews: React.FC<{ reviews: Array<Review> | undefined }> = ({
