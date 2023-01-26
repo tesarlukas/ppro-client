@@ -56,7 +56,7 @@ const ReviewForm: React.FC<{
             >
                 <h6>Score</h6>
                 <select
-                    className="bg-slate-600"
+                    className="bg-slate-600 border-slate-300 rounded-sm"
                     name="score"
                     id="cars"
                     value={review?.score}
@@ -81,7 +81,7 @@ const ReviewForm: React.FC<{
                     onChange={handleCommentChange}
                 />
                 <input
-                    className="mt-4 border border-slate-300"
+                    className="mt-4 border border-slate-300 rounded-sm"
                     type="submit"
                     value={isEditing ? 'Edit a review' : 'Create a review'}
                 ></input>

@@ -19,6 +19,22 @@ export const FilmWorks: React.FC = () => {
         );
     };
 
+    const deleteFilmWork = async (id: number): Promise<Response> => {
+        const res = await fetch(
+            `${import.meta.env.VITE_DEV_API_URL}api/v1/movies/${id}`,
+            {
+                method: 'DELETE',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+            },
+        );
+        getFilmWorks();
+
+        return res;
+    };
+
     useEffect(() => {
         getFilmWorks();
     }, []);
@@ -30,7 +46,10 @@ export const FilmWorks: React.FC = () => {
                 {filmworks?.content.map((value: FilmWork) => {
                     return (
                         <Link key={value.id} to={`/filmwork/${value.id}`}>
-                            <FilmWorkCard filmwork={value} />
+                            <FilmWorkCard
+                                deleteFilmWork={deleteFilmWork}
+                                filmwork={value}
+                            />
                         </Link>
                     );
                 })}

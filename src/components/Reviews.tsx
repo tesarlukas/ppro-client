@@ -9,7 +9,7 @@ const Reviews: React.FC<{
     triggerEdit: (id: number) => Promise<Response>;
 }> = ({ reviews, deleteReview, triggerEdit }) => {
     return (
-        <div className="mt-5 flex flex-wrap justify-center gap-6">
+        <div className="mt-5 flex flex-wrap justify-center gap-6 w-full">
             {reviews?.map((review: Review) => {
                 return (
                     <div

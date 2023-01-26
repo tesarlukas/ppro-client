@@ -1,9 +1,10 @@
 import React from 'react';
 import { FilmWork, GenreSimple } from '../shared/types';
 
-export const FilmWorkCard: React.FC<{ filmwork: FilmWork }> = ({
-    filmwork,
-}) => {
+export const FilmWorkCard: React.FC<{
+    filmwork: FilmWork;
+    deleteFilmWork: (id: number) => Promise<Response>;
+}> = ({ filmwork, deleteFilmWork }) => {
     return (
         <div className="bg-gray-900 flex flex-col h-96 w-64 rounded-xl shadow-xl hover:-translate-y-1 transition ease-out hover:scale-105">
             <img
@@ -25,6 +26,14 @@ export const FilmWorkCard: React.FC<{ filmwork: FilmWork }> = ({
                     })}
                 </h3>
                 <h3 className="px-4 py-2">{filmwork.audienceScore} / 10</h3>
+                <button
+                    onClick={(e) => {
+                        e.preventDefault();
+                        deleteFilmWork(filmwork.id);
+                    }}
+                >
+                    Delete
+                </button>
             </div>
         </div>
     );
