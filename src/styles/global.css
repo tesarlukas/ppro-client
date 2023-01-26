@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: sourceSansSemi;
-  src: url('/assets/fonts/SourceSansPro-SemiBold.ttf');
+    font-family: sourceSansSemi;
+    src: url('/assets/fonts/SourceSansPro-SemiBold.ttf');
 }
 
 @font-face {
-  font-family: sourceSansLight;
-  src: url('/assets/fonts/SourceSansPro-Light.ttf');
+    font-family: sourceSansLight;
+    src: url('/assets/fonts/SourceSansPro-Light.ttf');
 }
 
 :root {
@@ -31,11 +31,11 @@
 }
 
 .layout {
-    @apply flex flex-wrap flex-col content-center self-center max-w-6xl
+    @apply flex flex-wrap flex-col content-center self-center max-w-6xl;
 }
 
 .max-w-33 {
-    max-width: calc(100%/3);
+    max-width: calc(100% / 3);
 }
 
 a {

@@ -98,6 +98,25 @@ const FilmWork: React.FC = () => {
         } as FilmWorkType);
     };
 
+    const addToPlan = async () => {
+        const res = await fetch(
+            `${
+                import.meta.env.VITE_DEV_API_URL
+            }api/v1/account/plans-to-watch/1`,
+            {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                },
+                body: JSON.stringify(review),
+            },
+        );
+
+        return res;
+    };
+
     useEffect(() => {
         getFilmWork();
     }, []);
