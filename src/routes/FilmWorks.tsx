@@ -40,7 +40,7 @@ export const FilmWorks: React.FC = () => {
     }, []);
 
     return (
-        <>
+        <div className="layout relative">
             <FilterControls />
             <div className="flex flex-row flex-wrap gap-x-48 gap-y-48 pt-24 justify-center">
                 {filmworks?.content.map((value: FilmWork) => {
@@ -54,7 +54,12 @@ export const FilmWorks: React.FC = () => {
                     );
                 })}
             </div>
-        </>
+            <Link to="/create">
+                <div className="rounded-full flex justify-center content-center bg-lime-500 h-10 w-10 absolute">
+                    <span className="leading-10 text-5xl">+</span>
+                </div>
+            </Link>
+        </div>
     );
 };
 

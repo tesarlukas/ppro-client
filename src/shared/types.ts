@@ -8,6 +8,19 @@ export interface FilmWork {
     reviews: Array<Review>;
 }
 
+export interface FilmWorkFormInterface {
+    title: { value: string };
+    release: { value: string };
+    // genres: Array<GenreSimple>;
+    // occupations: Array<Occupation>;
+    // reviews: Array<Review>;
+}
+
+export interface FilmWorkFormData {
+    name: string;
+    releaseDate: Date;
+}
+
 export interface Genre {
     id: number;
     name: string;
