@@ -18,16 +18,18 @@ const App: React.FC = () => {
         <div className="App">
             <Router>
                 <Header />
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/filmworks" element={<FilmWorks />} />
-                    <Route path="/filmwork/:id" element={<FilmWork />} />
-                    <Route path="/person/:id" element={<Person />} />
-                    <Route path="/user/:id" element={<UserProfile />} />
-                    <Route path="/register" element={<Register />} />
-                    <Route path="*" element={<Error />} />
-                </Routes>
+                <div className="w-screen flex flex-col">
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/filmworks" element={<FilmWorks />} />
+                        <Route path="/filmwork/:id" element={<FilmWork />} />
+                        <Route path="/person/:id" element={<Person />} />
+                        <Route path="/user/:id" element={<UserProfile />} />
+                        <Route path="/register" element={<Register />} />
+                        <Route path="*" element={<Error />} />
+                    </Routes>
+                </div>
             </Router>
         </div>
     );

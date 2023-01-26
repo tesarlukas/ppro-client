@@ -30,6 +30,14 @@
     -webkit-text-size-adjust: 100%;
 }
 
+.layout {
+    @apply flex flex-wrap flex-col content-center self-center max-w-6xl
+}
+
+.max-w-33 {
+    max-width: calc(100%/3);
+}
+
 a {
     font-weight: 500;
     color: #fff;

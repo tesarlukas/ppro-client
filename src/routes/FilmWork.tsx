@@ -104,54 +104,56 @@ const FilmWork: React.FC = () => {
 
     return (
         <>
-            <div className="flex flex-row justify-center mt-24">
-                <div className="bg-slate-800 p-12 flex flex-col ">
-                    <div className="flex flex-row justify-between">
-                        <h1 className="text-5xl">{movie?.name}</h1>
+            <div className="layout">
+                <div className="flex flex-row gap-6 mt-24 ">
+                    <div className="bg-slate-800 p-12 flex flex-col rounded-2xl w-9/12">
+                        <div className="flex flex-row justify-between">
+                            <h1 className="text-5xl">{movie?.name}</h1>
 
-                        <div className="text-5xl flex">
-                            {movie?.audienceScore}/10{' '}
-                            <FaStar className="bg text-yellow-500 ml-2" />
+                            <div className="text-5xl flex">
+                                {movie?.audienceScore}/10{' '}
+                                <FaStar className="bg text-yellow-500 ml-2" />
+                            </div>
+                        </div>
+                        <div>
+                            Genres:{' '}
+                            {movie?.genres.map((genre: GenreSimple) => (
+                                <span key={genre.id}>{genre.name}</span>
+                            ))}
+                        </div>
+                        <div>
+                            Cast:{' '}
+                            {movie?.occupations.map(
+                                (occupation: Occupation) => (
+                                    <Link
+                                        key={occupation.id}
+                                        to={`/person/${occupation.person.id}`}
+                                    >
+                                        <span>
+                                            {`${occupation.person.firstName} ${occupation.person.lastName}, `}
+                                        </span>
+                                    </Link>
+                                ),
+                            )}
                         </div>
                     </div>
-                    <div>
-                        Genres:{' '}
-                        {movie?.genres.map((genre: GenreSimple) => (
-                            <span key={genre.id}>{genre.name}</span>
-                        ))}
-                    </div>
-                    <div>
-                        Cast:{' '}
-                        {movie?.occupations.map((occupation: Occupation) => (
-                            <Link
-                                key={occupation.id}
-                                to={`/person/${occupation.person.id}`}
-                            >
-                                <span>
-                                    {`${occupation.person.firstName} ${occupation.person.lastName}, `}
-                                </span>
-                            </Link>
-                        ))}
+                    <div className="w-3/12">
+                        <ReviewForm
+                            review={review}
+                            setReview={setReview}
+                            createReview={createReview}
+                            isEditing={isEditing}
+                            editReview={editReview}
+                        />
                     </div>
                 </div>
-            </div>
-
-            <div className="flex flex-row">
-                <Reviews
-                    reviews={movie?.reviews}
-                    deleteReview={deleteReview}
-                    triggerEdit={triggerEdit}
-                />
-            </div>
-
-            <div className="flex flex-row">
-                <ReviewForm
-                    review={review}
-                    setReview={setReview}
-                    createReview={createReview}
-                    isEditing={isEditing}
-                    editReview={editReview}
-                />
+                <div className="flex flex-row flex-wrap justify-center">
+                    <Reviews
+                        reviews={movie?.reviews}
+                        deleteReview={deleteReview}
+                        triggerEdit={triggerEdit}
+                    />
+                </div>
             </div>
         </>
     );
