@@ -53,7 +53,7 @@ const FilmWork: React.FC = () => {
         return res;
     };
 
-    const editReview = async (data: ReviewFormData): Promise<Response> => {
+    const editReview = async (): Promise<Response> => {
         const res = await fetch(
             `${import.meta.env.VITE_DEV_API_URL}api/v1/reviews`,
             {
@@ -67,6 +67,7 @@ const FilmWork: React.FC = () => {
             },
         );
         updateReviewsAndScore();
+        setIsEditing(false);
 
         return res;
     };

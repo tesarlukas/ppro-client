@@ -8,7 +8,7 @@ const ReviewForm: React.FC<{
     review?: ReviewFormData;
     setReview: React.Dispatch<React.SetStateAction<ReviewFormData | undefined>>;
     isEditing?: boolean;
-    editReview: (data: ReviewFormData) => Promise<Response>;
+    editReview: () => Promise<Response>;
 }> = ({ createReview, review, setReview, editReview, isEditing }) => {
     const { id } = useParams<string>();
 
@@ -27,15 +27,7 @@ const ReviewForm: React.FC<{
         };
 
         if (isEditing) {
-            const data: ReviewFormData = {
-                id: review?.id,
-                score: score.value,
-                comment: comment.value,
-                user: { id: 3 },
-                filmwork: { id: id },
-            };
-
-            const res = await editReview(data);
+            const res = await editReview();
             return res;
         }
         const res = await createReview(data);
