@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface TextFieldProps {
     value?: string;
@@ -7,6 +7,7 @@ interface TextFieldProps {
     placeholder?: string;
     id?: string;
     name?: string;
+    isEditing?: boolean;
 }
 
 const TextField: React.FC<TextFieldProps> = (props: TextFieldProps) => {
@@ -14,9 +15,12 @@ const TextField: React.FC<TextFieldProps> = (props: TextFieldProps) => {
 
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setText(e.target.value);
-
-        if (props.onChange !== undefined) props.onChange(e.target.value);
+        if (props.onChange) props.onChange(e.target.value);
     };
+
+    useEffect(() => {
+        if (props.value) setText(props.value);
+    }, [props.value]);
 
     return (
         <input

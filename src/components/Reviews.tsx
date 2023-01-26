@@ -1,12 +1,13 @@
 import React from 'react';
-import { Review } from '../shared/types';
+import { Review, ReviewFormData } from '../shared/types';
 import { Link } from 'react-router-dom';
 import { FaStar } from 'react-icons/fa';
 
 const Reviews: React.FC<{
     reviews: Array<Review> | undefined;
-    handleDelete: (review: number) => void;
-}> = ({ reviews, handleDelete }) => {
+    deleteReview: (review: number) => Promise<Response>;
+    triggerEdit: (id: number) => Promise<Response>;
+}> = ({ reviews, deleteReview, triggerEdit }) => {
     return (
         <>
             {reviews?.map((review: Review) => {
@@ -24,8 +25,17 @@ const Reviews: React.FC<{
                                 {review.user.username}
                             </Link>
                         </div>
-                        <button onClick={() => handleDelete(review.id)}>
+                        <button
+                            className="bg-red-700"
+                            onClick={() => deleteReview(review.id)}
+                        >
                             Delete
+                        </button>
+                        <button
+                            className="bg-emerald-900"
+                            onClick={() => triggerEdit(review.id)}
+                        >
+                            Edit
                         </button>
                     </div>
                 );

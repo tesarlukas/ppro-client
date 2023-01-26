@@ -5,10 +5,16 @@ import { useParams } from 'react-router-dom';
 
 const ReviewForm: React.FC<{
     createReview: (data: ReviewFormData) => Promise<Response>;
-}> = ({ createReview }) => {
-    const { id } = useParams<any>();
+    review?: ReviewFormData;
+    setReview: React.Dispatch<React.SetStateAction<ReviewFormData | undefined>>;
+    isEditing?: boolean;
+    editReview: (data: ReviewFormData) => Promise<Response>;
+}> = ({ createReview, review, setReview, editReview, isEditing }) => {
+    const { id } = useParams<string>();
 
-    const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleOnSubmit = async (
+        e: React.FormEvent<HTMLFormElement>,
+    ): Promise<Response> => {
         e.preventDefault();
         const { score, comment } = e.target as typeof e.target &
             ReviewFormInterface;
@@ -20,7 +26,34 @@ const ReviewForm: React.FC<{
             filmwork: { id: id },
         };
 
+        if (isEditing) {
+            const data: ReviewFormData = {
+                id: review?.id,
+                score: score.value,
+                comment: comment.value,
+                user: { id: 3 },
+                filmwork: { id: id },
+            };
+
+            const res = await editReview(data);
+            return res;
+        }
         const res = await createReview(data);
+        return res;
+    };
+
+    const handleScoreChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setReview({
+            ...review,
+            score: e.target.value as unknown as number,
+        } as ReviewFormData);
+    };
+
+    const handleCommentChange = (comment: string) => {
+        setReview({
+            ...review,
+            comment: comment,
+        } as ReviewFormData);
     };
 
     return (
@@ -30,7 +63,13 @@ const ReviewForm: React.FC<{
                 className="flex flex-col bg-slate-800 p-4 rounded-xl mt-48"
             >
                 <h6>Score</h6>
-                <select className="bg-slate-600" name="score" id="cars">
+                <select
+                    className="bg-slate-600"
+                    name="score"
+                    id="cars"
+                    value={review?.score}
+                    onChange={handleScoreChange}
+                >
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -43,11 +82,16 @@ const ReviewForm: React.FC<{
                     <option value="10">10</option>
                 </select>
                 <h6>Comment</h6>
-                <TextField type="text" name="comment" />
+                <TextField
+                    type="text"
+                    name="comment"
+                    value={review?.comment}
+                    onChange={handleCommentChange}
+                />
                 <input
                     className="mt-4 border border-slate-300"
                     type="submit"
-                    value="Create a review"
+                    value={isEditing ? 'Edit a review' : 'Create a review'}
                 ></input>
             </form>
         </div>

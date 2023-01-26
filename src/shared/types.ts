@@ -86,6 +86,7 @@ export interface ReviewFormInterface {
 }
 
 export interface ReviewFormData {
+    id?: number;
     score: number;
     comment: string;
     user: { id: number };

@@ -13,6 +13,8 @@ import ReviewForm from '../components/ReviewForm';
 const FilmWork: React.FC = () => {
     const { id } = useParams();
     const [movie, setMovie] = useState<FilmWorkType>();
+    const [review, setReview] = useState<ReviewFormData>();
+    const [isEditing, setIsEditing] = useState<boolean>();
 
     const getFilmWork = async () => {
         const res = await fetch(
@@ -46,12 +48,53 @@ const FilmWork: React.FC = () => {
             `${import.meta.env.VITE_DEV_API_URL}api/v1/reviews/${id}`,
             { method: 'DELETE' },
         );
+
         getFilmWork();
         return res;
     };
 
-    const handleDeleteReview = (id: number) => {
-        deleteReview(id);
+    const editReview = async (data: ReviewFormData): Promise<Response> => {
+        const res = await fetch(
+            `${import.meta.env.VITE_DEV_API_URL}api/v1/reviews`,
+            {
+                method: 'PUT',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                },
+                body: JSON.stringify(review),
+            },
+        );
+        updateReviewsAndScore();
+
+        return res;
+    };
+
+    const triggerEdit = async (id: number): Promise<Response> => {
+        const res = await fetch(
+            `${import.meta.env.VITE_DEV_API_URL}api/v1/reviews/${id}`,
+        );
+        const review: ReviewFormData = await res.json();
+
+        setReview(review);
+        setIsEditing(true);
+        return res;
+    };
+
+    const updateReviewsAndScore = async () => {
+        const res = await fetch(
+            `${import.meta.env.VITE_DEV_API_URL}api/v1/movies/${id}`,
+        );
+        const data: FilmWorkType = await res.json();
+        if (data === undefined)
+            throw new Error('failed to cast data from the response!');
+
+        setMovie({
+            ...movie,
+            audienceScore: data.audienceScore,
+            reviews: data.reviews,
+        } as FilmWorkType);
     };
 
     useEffect(() => {
@@ -95,12 +138,19 @@ const FilmWork: React.FC = () => {
             <div className="flex flex-row">
                 <Reviews
                     reviews={movie?.reviews}
-                    handleDelete={handleDeleteReview}
+                    deleteReview={deleteReview}
+                    triggerEdit={triggerEdit}
                 />
             </div>
 
             <div className="flex flex-row">
-                <ReviewForm createReview={createReview} />
+                <ReviewForm
+                    review={review}
+                    setReview={setReview}
+                    createReview={createReview}
+                    isEditing={isEditing}
+                    editReview={editReview}
+                />
             </div>
         </>
     );
