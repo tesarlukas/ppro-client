@@ -6,19 +6,38 @@ export interface FilmWork {
     genres: Array<GenreSimple>;
     occupations: Array<Occupation>;
     reviews: Array<Review>;
+    imgPaths: FilmWorkImage;
 }
 
-export interface FilmWorkFormInterface {
+export interface FilmWorkImage {
+    id: number;
+    img: string;
+    isTitle: boolean;
+}
+
+export interface MovieFormInterface {
     title: { value: string };
-    release: { value: string };
+    release: { value: Date };
     // genres: Array<GenreSimple>;
     // occupations: Array<Occupation>;
     // reviews: Array<Review>;
 }
 
-export interface FilmWorkFormData {
+export interface MovieFormData {
+    id?: number;
     name: string;
-    releaseDate: Date;
+    releaseDate: string;
+}
+
+export interface Movie {
+    id: number;
+    name: string;
+    audienceScore: number;
+    criticsScore: number;
+    releaseDate: string;
+    genres: Array<Genre>;
+    occupations: Array<Occupation>;
+    reviews: Array<Review>;
 }
 
 export interface Genre {

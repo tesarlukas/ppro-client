@@ -10,15 +10,18 @@
   },
   "dependencies": {
     "@types/react-router-dom": "^5.3.3",
+    "date-fns": "^2.29.3",
     "flowbite": "^1.6.3",
     "flowbite-react": "^0.3.7",
     "react": "^18.2.0",
+    "react-datepicker": "^4.8.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
     "react-router-dom": "^6.6.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.24",
+    "@types/react-datepicker": "^4.8.0",
     "@types/react-dom": "^18.0.8",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",

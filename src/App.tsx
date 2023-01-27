@@ -12,7 +12,7 @@ import FilmWork from './routes/FilmWork';
 import Person from './routes/Person';
 import Header from './components/Header';
 import UserProfile from './routes/UserProfile';
-import Create from './routes/Create';
+import CreateEdit from './routes/CreateEdit';
 
 const App: React.FC = () => {
     return (
@@ -28,7 +28,8 @@ const App: React.FC = () => {
                         <Route path="/person/:id" element={<Person />} />
                         <Route path="/user/:id" element={<UserProfile />} />
                         <Route path="/register" element={<Register />} />
-                        <Route path="/create" element={<Create />} />
+                        <Route path="/create" element={<CreateEdit />} />
+                        <Route path="/edit/:id" element={<CreateEdit />} />
                         <Route path="*" element={<Error />} />
                     </Routes>
                 </div>
