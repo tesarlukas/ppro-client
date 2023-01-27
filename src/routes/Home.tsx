@@ -1,14 +1,37 @@
 import React from 'react';
 import '../styles/App.css';
 import '../components/TextField';
-import Header from '../components/Header';
-import {LatestMovies} from '../components/LatestMovies';
+import { Carousel } from 'flowbite-react';
 
 const Home: React.FC = () => {
-    return <>
-        <Header/>
-        <LatestMovies></LatestMovies>
-    </>;
+    return (
+        <>
+            <div className="h-56 sm:h-64 xl:h-80 2xl:h-96">
+                <Carousel>
+                    <img
+                        src="https://flowbite.com/docs/images/carousel/carousel-1.svg"
+                        alt="..."
+                    />
+                    <img
+                        src="https://flowbite.com/docs/images/carousel/carousel-2.svg"
+                        alt="..."
+                    />
+                    <img
+                        src="https://flowbite.com/docs/images/carousel/carousel-3.svg"
+                        alt="..."
+                    />
+                    <img
+                        src="https://flowbite.com/docs/images/carousel/carousel-4.svg"
+                        alt="..."
+                    />
+                    <img
+                        src="https://flowbite.com/docs/images/carousel/carousel-5.svg"
+                        alt="..."
+                    />
+                </Carousel>
+            </div>
+        </>
+    );
 };
 
 export default Home;
