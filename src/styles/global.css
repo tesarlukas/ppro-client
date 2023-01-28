@@ -3,20 +3,21 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: sourceSansSemi;
-    src: url('/assets/fonts/SourceSansPro-SemiBold.ttf');
+    font-family: sourceSans;
+    font-weight: bold;
+    src: url('/assets/fonts/SourceSansPro-Regular.ttf');
 }
 
 @font-face {
-    font-family: sourceSansLight;
+    font-family: sourceSans;
+    font-weight: normal;
     src: url('/assets/fonts/SourceSansPro-Light.ttf');
 }
 
 :root {
-    font-family: sourceSansLight;
+    font-family: sourceSans;
     font-size: 16px;
     line-height: 24px;
-    font-weight: 400;
     color-scheme: light dark;
     color: rgba(255, 255, 255, 0.87);
     @apply bg-slate-50;
@@ -34,6 +35,10 @@
     @apply flex flex-wrap flex-col content-center self-center max-w-6xl;
 }
 
+.control {
+    @apply flex flex-wrap justify-center content-center h-16 w-16 shadow-xl rounded-full transition ease-in border-none;
+}
+
 .max-w-33 {
     max-width: calc(100% / 3);
 }
@@ -44,7 +49,7 @@ a {
     text-decoration: inherit;
 }
 a:hover {
-    color: #535bf2;
+    /* color: #535bf2; */
 }
 
 body {
