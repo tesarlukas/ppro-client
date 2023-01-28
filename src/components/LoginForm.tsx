@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import TextField from './TextField';
 import { LoginCredentials, LoginFormInterface } from '../shared/types';
 import { tryLogin } from '../shared/api';
+import { useNavigate } from 'react-router';
+import { UserContext } from '../context';
 
 export const LoginForm: React.FC = () => {
-    const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+    const [logged, setLogged] = useState<boolean>(true);
+    const navigate = useNavigate();
+    const { setUser } = useContext(UserContext);
+
+    const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const { password, username } = e.target as typeof e.target &
             LoginFormInterface;
@@ -14,9 +20,23 @@ export const LoginForm: React.FC = () => {
             username: username.value,
         };
 
-        tryLogin(credentials)
-            .then((res) => console.log('Login was successful!', res.json()))
-            .catch((err) => console.error(err));
+        type data = {
+            token: string;
+        };
+
+        try {
+            const res = await tryLogin(credentials);
+            const data: data = await res.json();
+            document.cookie = `${credentials.username}=${data.token}`;
+            if (data.token) {
+                setUser(credentials.username);
+                navigate('/');
+            } else {
+                setLogged(false);
+            }
+        } catch (error) {
+            return;
+        }
     };
 
     return (
@@ -33,6 +53,11 @@ export const LoginForm: React.FC = () => {
                 type="submit"
                 value="Login"
             ></input>
+            {logged ? (
+                ''
+            ) : (
+                <h6 className="text-red-500 mt-1">Wrong credentials</h6>
+            )}
         </form>
     );
 };
