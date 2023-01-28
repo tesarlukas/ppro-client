@@ -5,19 +5,20 @@ import React, {
     createContext,
     useState,
 } from 'react';
+import { AuthUser as User } from '../shared/types';
 
 interface Props {
     children: ReactNode;
 }
 
 interface UserContextInterface {
-    user: string;
-    setUser: Dispatch<SetStateAction<string>>;
+    user: User;
+    setUser: Dispatch<SetStateAction<User>>;
 }
 
 const userContextDefaultValue: UserContextInterface = {
-    user: '',
-    setUser: () => '',
+    user: { name: '', role: '' },
+    setUser: () => ({ name: '', role: '' }),
 };
 
 export const UserContext = createContext<UserContextInterface>(
@@ -25,7 +26,7 @@ export const UserContext = createContext<UserContextInterface>(
 );
 
 export const UserContextProvider = ({ children }: Props) => {
-    const [user, setUser] = useState<string>('');
+    const [user, setUser] = useState<User>(userContextDefaultValue.user);
     return (
         <UserContext.Provider value={{ user, setUser }}>
             {children}

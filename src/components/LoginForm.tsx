@@ -1,6 +1,11 @@
 import React, { useContext, useState } from 'react';
 import TextField from './TextField';
-import { LoginCredentials, LoginFormInterface } from '../shared/types';
+import {
+    AuthUser,
+    DecodedToken,
+    LoginCredentials,
+    LoginFormInterface,
+} from '../shared/types';
 import { tryLogin } from '../shared/api';
 import { useNavigate } from 'react-router';
 import { UserContext } from '../context';
@@ -9,7 +14,7 @@ import jwt_decode from 'jwt-decode';
 export const LoginForm: React.FC = () => {
     const [logged, setLogged] = useState<boolean>(true);
     const navigate = useNavigate();
-    const { setUser } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
 
     const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -29,10 +34,15 @@ export const LoginForm: React.FC = () => {
             const res = await tryLogin(credentials);
             const data: data = await res.json();
             document.cookie = `${credentials.username}=${data.token}`;
-            if (data.token) {
-                setUser(credentials.username);
 
-                // console.log(jwt_decode(data.token));
+            if (data.token) {
+                const decodedToken: DecodedToken = jwt_decode(data.token);
+                const newUser: AuthUser = {
+                    name: decodedToken.sub,
+                    role: decodedToken.role,
+                };
+
+                setUser(newUser);
                 navigate('/');
             } else {
                 setLogged(false);
