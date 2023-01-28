@@ -1,5 +1,6 @@
 import React from 'react';
 import { FilmWork, GenreSimple } from '../shared/types';
+import { FaTimes } from 'react-icons/fa';
 
 export const FilmWorkCard: React.FC<{
     filmwork: FilmWork;
@@ -11,7 +12,7 @@ export const FilmWorkCard: React.FC<{
                 src="assets/images/movie.jpg"
                 className="h-64 object-cover rounded-t-xl"
             />
-            <div className="flex flex-col py-3">
+            <div className="flex flex-col py-3 relative">
                 <h2 className="font-bold px-4 py-1 text-xl">{filmwork.name}</h2>
                 <h3 className="font-bold px-4 py-1">
                     {filmwork.genres.map((genre: GenreSimple) => {
@@ -27,12 +28,13 @@ export const FilmWorkCard: React.FC<{
                 </h3>
                 <h3 className="px-4 py-2">{filmwork.audienceScore} / 10</h3>
                 <button
+                    className="control absolute -bottom-5 -right-5 bg-red-600 hover:text-red-600 hover:bg-white"
                     onClick={(e) => {
                         e.preventDefault();
                         deleteFilmWork(filmwork.id);
                     }}
                 >
-                    Delete
+                    <FaTimes size={30} />
                 </button>
             </div>
         </div>

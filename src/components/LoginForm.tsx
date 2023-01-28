@@ -4,6 +4,7 @@ import { LoginCredentials, LoginFormInterface } from '../shared/types';
 import { tryLogin } from '../shared/api';
 import { useNavigate } from 'react-router';
 import { UserContext } from '../context';
+import jwt_decode from 'jwt-decode';
 
 export const LoginForm: React.FC = () => {
     const [logged, setLogged] = useState<boolean>(true);
@@ -30,6 +31,8 @@ export const LoginForm: React.FC = () => {
             document.cookie = `${credentials.username}=${data.token}`;
             if (data.token) {
                 setUser(credentials.username);
+
+                // console.log(jwt_decode(data.token));
                 navigate('/');
             } else {
                 setLogged(false);

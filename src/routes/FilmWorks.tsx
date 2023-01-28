@@ -3,6 +3,7 @@ import { FilmWork, Page } from '../shared/types';
 import FilmWorkCard from '../components/FilmWorkCard';
 import { Link } from 'react-router-dom';
 import FilterControls from '../components/FilterControls';
+import { FaPlus } from 'react-icons/fa';
 
 export const FilmWorks: React.FC = () => {
     const [filmworks, setFilmWorks] = useState<Page<FilmWork>>();
@@ -55,8 +56,8 @@ export const FilmWorks: React.FC = () => {
                 })}
             </div>
             <Link to="/create">
-                <div className="rounded-full flex justify-center content-center bg-lime-500 h-10 w-10 absolute">
-                    <span className="leading-10 text-5xl">+</span>
+                <div className="control fixed bottom-5 right-40 hover:text-blue-600 bg-blue-600 hover:bg-white">
+                    <FaPlus size={30} />
                 </div>
             </Link>
         </div>
