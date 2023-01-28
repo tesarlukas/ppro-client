@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext, useState } from 'react';
 import './styles/App.css';
 import './components/TextField';
 import './styles/global.css';
@@ -14,28 +14,35 @@ import Header from './components/Header';
 import UserProfile from './routes/UserProfile';
 import CreateEdit from './routes/CreateEdit';
 import CreateEditPerson from './routes/CreateEditPerson';
+import { UserContextProvider } from './context';
+
 
 const App: React.FC = () => {
     return (
         <div className="App">
             <Router>
-                <Header />
-                <div className="w-screen flex flex-col">
-                    <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/filmworks" element={<FilmWorks />} />
-                        <Route path="/filmwork/:id" element={<FilmWork />} />
-                        <Route path="/person/:id" element={<Person />} />
-                        <Route path="/user/:id" element={<UserProfile />} />
-                        <Route path="/register" element={<Register />} />
-                        <Route path="/create" element={<CreateEdit />} />
-                        <Route path="/edit/:id" element={<CreateEdit />} />
-                        <Route path="*" element={<Error />} />
-                        <Route path="/person/edit/:id" element={<CreateEditPerson />} />
-                        <Route path="/person/create" element={<CreateEditPerson />} />
-                    </Routes>
-                </div>
+                <UserContextProvider>
+                    <Header />
+                    <div className="w-screen flex flex-col">
+                        <Routes>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/login" element={<Login />} />
+                            <Route path="/filmworks" element={<FilmWorks />} />
+                            <Route
+                                path="/filmwork/:id"
+                                element={<FilmWork />}
+                            />
+                            <Route path="/person/:id" element={<Person />} />
+                            <Route path="/user/:id" element={<UserProfile />} />
+                            <Route path="/register" element={<Register />} />
+                            <Route path="/create" element={<CreateEdit />} />
+                            <Route path="/edit/:id" element={<CreateEdit />} />
+                            <Route path="*" element={<Error />} />
+                            <Route path="/person/edit/:id" element={<CreateEditPerson />} />
+                            <Route path="/person/create" element={<CreateEditPerson />} />
+                        </Routes>
+                    </div>
+                </UserContextProvider>
             </Router>
         </div>
     );
