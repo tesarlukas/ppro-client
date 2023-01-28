@@ -13,6 +13,7 @@ import Person from './routes/Person';
 import Header from './components/Header';
 import UserProfile from './routes/UserProfile';
 import CreateEdit from './routes/CreateEdit';
+import CreateEditPerson from './routes/CreateEditPerson';
 
 const App: React.FC = () => {
     return (
@@ -31,6 +32,8 @@ const App: React.FC = () => {
                         <Route path="/create" element={<CreateEdit />} />
                         <Route path="/edit/:id" element={<CreateEdit />} />
                         <Route path="*" element={<Error />} />
+                        <Route path="/person/edit/:id" element={<CreateEditPerson />} />
+                        <Route path="/person/create" element={<CreateEditPerson />} />
                     </Routes>
                 </div>
             </Router>

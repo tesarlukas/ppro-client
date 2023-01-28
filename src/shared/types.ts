@@ -23,6 +23,21 @@ export interface MovieFormInterface {
     // reviews: Array<Review>;
 }
 
+export interface PersonFormInterface {
+    firstName: { value: string };
+    lastName: { value: string };
+    // genres: Array<GenreSimple>;
+    // occupations: Array<Occupation>;
+    // reviews: Array<Review>;
+}
+
+
+export interface PersonFormData {
+    id?: number;
+    firstName: string;
+    lastName: string;
+}
+
 export interface MovieFormData {
     id?: number;
     name: string;

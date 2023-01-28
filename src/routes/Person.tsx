@@ -41,24 +41,30 @@ const Person = () => {
 
     return (
         <>
-            <div className="bg-slate-800">
-                <div>
+            <div className="layout">
+                <div className="flex bg-slate-800 rounded-2xl mt-24 text-5xl p-8">
                     {person?.firstName} {person?.lastName}
                 </div>
-                <div>
-                    {occupations?.content.map((occupation: Occupation) => {
+                <div className='bg-slate-800 rounded-2xl mt-3 p-8'>
+                    <h4 className='text-3xl text-center pb-8'>Occupations</h4>
+                    <div className='flex flex-col justify-around'>
+                        <div className='flex flex-row bg-slate-700 rounded-t-md flex-wrap'>
+                            <h6 className='w-1/2 text-center'>Filmwork</h6>
+                            <h6 className='w-1/2 text-center'>Role</h6>
+                        </div>
+                    {occupations?.content.map((occupation: Occupation, index: number) => {
                         return (
-                            <span key={occupation.id}>
-                                <Link
-                                    to={`/filmwork/${occupation.filmwork.id}`}
-                                >
+                            <div className='flex {index % 2 === 1 ? bg-slate-600 : bg-slate-700} flex-row justify-center' key={occupation.id}>
+                                <Link className='w-1/2 text-center' to={`/filmwork/${occupation.filmwork.id}`}>
                                     {occupation.filmwork.name + ' '}
                                 </Link>
-                                as
-                                {' ' + occupation.role}
-                            </span>
+                                <span className='w-1/2 text-center'>
+                                    {occupation.role}
+                                </span>
+                            </div>
                         );
                     })}
+                    </div>
                 </div>
             </div>
         </>
