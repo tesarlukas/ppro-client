@@ -17,7 +17,7 @@ interface UserContextInterface {
 }
 
 const userContextDefaultValue: UserContextInterface = {
-    user: { name: '', role: '' },
+    user: { id: 0, name: '', role: '' },
     setUser: () => ({ name: '', role: '' }),
 };
 

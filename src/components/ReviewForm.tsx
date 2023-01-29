@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import TextField from './TextField';
 import { ReviewFormData, ReviewFormInterface } from '../shared/types';
 import { useParams } from 'react-router-dom';
+import { UserContext } from '../context';
 
 const ReviewForm: React.FC<{
     createReview: (data: ReviewFormData) => Promise<Response>;
@@ -11,6 +12,7 @@ const ReviewForm: React.FC<{
     editReview: () => Promise<Response>;
 }> = ({ createReview, review, setReview, editReview, isEditing }) => {
     const { id } = useParams<string>();
+    const { user } = useContext(UserContext);
 
     const handleOnSubmit = async (
         e: React.FormEvent<HTMLFormElement>,
@@ -22,7 +24,7 @@ const ReviewForm: React.FC<{
         const data: ReviewFormData = {
             score: score.value,
             comment: comment.value,
-            user: { id: 3 },
+            user: { id: user.id },
             filmwork: { id: id },
         };
 

@@ -10,11 +10,12 @@ import { tryLogin } from '../shared/api';
 import { useNavigate } from 'react-router';
 import { UserContext } from '../context';
 import jwt_decode from 'jwt-decode';
+import Cookies from 'js-cookie';
 
 export const LoginForm: React.FC = () => {
     const [logged, setLogged] = useState<boolean>(true);
     const navigate = useNavigate();
-    const { user, setUser } = useContext(UserContext);
+    const { setUser } = useContext(UserContext);
 
     const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -33,11 +34,12 @@ export const LoginForm: React.FC = () => {
         try {
             const res = await tryLogin(credentials);
             const data: data = await res.json();
-            document.cookie = `${credentials.username}=${data.token}`;
+            Cookies.set('auth', data.token);
 
             if (data.token) {
                 const decodedToken: DecodedToken = jwt_decode(data.token);
                 const newUser: AuthUser = {
+                    id: decodedToken.id,
                     name: decodedToken.sub,
                     role: decodedToken.role,
                 };

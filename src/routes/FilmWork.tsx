@@ -9,6 +9,7 @@ import {
 } from '../shared/types';
 import Reviews from '../components/Reviews';
 import ReviewForm from '../components/ReviewForm';
+import Cookies from 'js-cookie';
 
 const FilmWork: React.FC = () => {
     const { id } = useParams();
@@ -35,18 +36,24 @@ const FilmWork: React.FC = () => {
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
+                    Authorization: `Bearer ${Cookies.get('auth')}`,
                 },
                 body: JSON.stringify(data),
             },
         );
-        getFilmWork();
+        updateReviewsAndScore();
         return res;
     };
 
     const deleteReview = async (id: number): Promise<Response> => {
         const res = await fetch(
             `${import.meta.env.VITE_DEV_API_URL}api/v1/reviews/${id}`,
-            { method: 'DELETE' },
+            {
+                method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${Cookies.get('auth')}`,
+                },
+            },
         );
 
         getFilmWork();
@@ -62,6 +69,7 @@ const FilmWork: React.FC = () => {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': '*',
+                    Authorization: `Bearer ${Cookies.get('auth')}`,
                 },
                 body: JSON.stringify(review),
             },

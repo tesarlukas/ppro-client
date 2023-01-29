@@ -1,13 +1,15 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../context';
+import Cookies from 'js-cookie';
 
 export const Header: React.FC = () => {
     const { user, setUser } = useContext(UserContext);
 
     const logout = (): void => {
+        Cookies.remove('auth');
         document.cookie = `${user.name}= ; expires = Thu, 01 Jan 1970 00:00:00 GMT`;
-        setUser({ name: '', role: '' });
+        setUser({ id: 0, name: '', role: '' });
     };
 
     return (

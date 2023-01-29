@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FilmWork, Page } from '../shared/types';
 import FilmWorkCard from '../components/FilmWorkCard';
 import { Link } from 'react-router-dom';
 import FilterControls from '../components/FilterControls';
 import { FaPlus } from 'react-icons/fa';
+import { UserContext } from '../context';
+import Cookies from 'js-cookie';
 
 export const FilmWorks: React.FC = () => {
     const [filmworks, setFilmWorks] = useState<Page<FilmWork>>();
+    const { user } = useContext(UserContext);
 
     const getFilmWorks = (): void => {
         fetch(`${import.meta.env.VITE_DEV_API_URL}api/v1/movies`).then(
@@ -28,6 +31,7 @@ export const FilmWorks: React.FC = () => {
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
+                    Authorization: `Bearer ${Cookies.get('auth')}`,
                 },
             },
         );
@@ -55,11 +59,15 @@ export const FilmWorks: React.FC = () => {
                     );
                 })}
             </div>
-            <Link to="/create">
-                <div className="control fixed bottom-5 right-40 hover:text-blue-600 bg-blue-600 hover:bg-white">
-                    <FaPlus size={30} />
-                </div>
-            </Link>
+            {user.role === 'ADMIN' ? (
+                <Link to="/create">
+                    <div className="control fixed bottom-5 right-40 hover:text-blue-600 bg-blue-600 hover:bg-white">
+                        <FaPlus size={30} />
+                    </div>
+                </Link>
+            ) : (
+                ''
+            )}
         </div>
     );
 };
