@@ -23,7 +23,7 @@ import FinishedList from './routes/FinishedList';
 
 const App: React.FC = () => {
     return (
-        <div className="App">
+        <div className="App h-screen">
             <Router>
                 <UserContextProvider>
                     <Header />

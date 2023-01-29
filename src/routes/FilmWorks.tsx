@@ -60,11 +60,24 @@ export const FilmWorks: React.FC = () => {
                 })}
             </div>
             {user.role === 'ADMIN' ? (
-                <Link to="/create">
-                    <div className="control fixed bottom-5 right-40 hover:text-blue-600 bg-blue-600 hover:bg-white">
-                        <FaPlus size={30} />
-                    </div>
-                </Link>
+                <div className="fixed flex flex-col flex-wrap gap-2 bottom-5 right-20">
+                    <Link to="/create">
+                        <div className="admin-control hover:text-blue-600 bg-blue-600 hover:bg-white">
+                            <h3 className="text-2xl">Add a movie</h3>
+                        </div>
+                    </Link>
+
+                    <Link to="/person/create">
+                        <div className="admin-control hover:text-blue-700 bg-blue-700 hover:bg-white">
+                            <h3 className="text-2xl">Add a person</h3>
+                        </div>
+                    </Link>
+                    <Link to="/genre/create">
+                        <div className="admin-control hover:text-blue-800 bg-blue-800 hover:bg-white">
+                            <h3 className="text-2xl">Add a genre</h3>
+                        </div>
+                    </Link>
+                </div>
             ) : (
                 ''
             )}
