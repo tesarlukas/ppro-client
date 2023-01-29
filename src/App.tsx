@@ -16,6 +16,7 @@ import CreateEditPerson from './routes/CreateEditPerson';
 import { UserContextProvider } from './context';
 import CreateEditGenre from './routes/CreateEditGenre';
 import UserProfile from './routes/UserProfile';
+import EditUser from './routes/EditUser';
 
 const App: React.FC = () => {
     return (
@@ -34,6 +35,10 @@ const App: React.FC = () => {
                             />
                             <Route path="/person/:id" element={<Person />} />
                             <Route path="/user/:id" element={<UserProfile />} />
+                            <Route
+                                path="/user/edit/:id"
+                                element={<EditUser />}
+                            />
                             <Route path="/register" element={<Register />} />
                             <Route path="/create" element={<CreateEdit />} />
                             <Route path="/edit/:id" element={<CreateEdit />} />

@@ -32,6 +32,7 @@ export interface GenreFormInterface {
     name: { value: string };
 }
 
+
 export interface PersonFormData {
     id?: number;
     firstName: string;
@@ -121,6 +122,18 @@ export interface Review {
 export interface LoginFormInterface {
     username: { value: string };
     password: { value: string };
+}
+
+export interface UserFormInterface {
+    username: { value: string };
+    newPassword: {value: string};
+    newRepeatPassword: { value: string };
+}
+
+export interface UserFormData {
+    id: number;
+    username: string;
+    password: string;
 }
 
 export interface RegisterFormInterface extends LoginFormInterface {
