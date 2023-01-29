@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { FilmWork, Page, Review, User as UserType } from '../shared/types';
+import {
+    DecodedToken,
+    FilmWork,
+    Page,
+    Review,
+    User as UserType,
+} from '../shared/types';
 import {
     getUser,
     getUsersHasWatched,
@@ -8,13 +14,15 @@ import {
     getUsersPlansToWatch,
 } from '../shared/api';
 import WatchListInfo from '../components/WatchListInfo';
-import Reviews from '../components/Reviews';
 import UsersReview from '../components/UsersReview';
+import Cookies from 'js-cookie';
+import jwtDecode from 'jwt-decode';
 
 const UserProfile: React.FC = () => {
     const { id } = useParams<string>();
 
     const [user, setUser] = useState<UserType>();
+
     const [plansToWatchCount, setPlansToWatchCount] = useState<number>(0);
     const [hasWatchedCount, setHasWatchedCount] = useState<number>(0);
     const [isWatchingCount, setIsWatchingCount] = useState<number>(0);
@@ -54,6 +62,28 @@ const UserProfile: React.FC = () => {
         setPlansToWatchCount(plansToWatchData.totalElements);
     };
 
+    const checkEditability = (): JSX.Element | null => {
+        if (id === undefined)
+            throw new Error('Couldn\'t fetch user! ID is undefined!');
+
+        let cookie: string | undefined;
+
+        if ((cookie = Cookies.get('auth')) === undefined) return null;
+
+        const credentials: DecodedToken = jwtDecode(cookie);
+
+        if (credentials.id !== parseInt(id)) return null;
+
+        return (
+            <Link
+                to={`/user/edit/${id}`}
+                className="text-center rounder text-1xl rounded-lg text-lg m-auto w-min py-1 px-4 bg-emerald-900"
+            >
+                Edit
+            </Link>
+        );
+    };
+
     useEffect(() => {
         fetchUser();
     }, []);
@@ -71,12 +101,7 @@ const UserProfile: React.FC = () => {
                             user?.profileImg
                         }
                     />
-                    <Link
-                        to={`/user/edit/${id}`}
-                        className="text-center rounder text-1xl rounded-lg text-lg m-auto w-min py-1 px-4 bg-emerald-900"
-                    >
-                        Edit
-                    </Link>
+                    {checkEditability()}
                 </div>
                 <div className="flex flex-col gap-3 w-1/3 justify-center bg-slate-800 rounded-2xl p-8">
                     <WatchListInfo

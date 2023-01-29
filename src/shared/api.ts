@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import {
     FilmWork,
     Genre,
@@ -8,6 +9,7 @@ import {
     PersonFormData,
     RegisterCredentials,
     User,
+    UserFormData,
 } from './types';
 
 export const tryLogin = async (
@@ -38,7 +40,6 @@ export const tryRegister = async (
         body: JSON.stringify(credentials),
     });
 };
-
 export const getPerson = async (id: number): Promise<Person> => {
     const res = await fetch(
         `${import.meta.env.VITE_DEV_API_URL}api/v1/people/${id}`,
@@ -56,6 +57,7 @@ export const postPerson = async (data: PersonFormData) => {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${Cookies.get('auth')}`,
             },
             body: JSON.stringify(data),
         },
@@ -74,6 +76,7 @@ export const putPerson = async (data: PersonFormData) => {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${Cookies.get('auth')}`,
             },
             body: JSON.stringify(data),
         },
@@ -97,6 +100,7 @@ export const postGenre = async (data: GenreFormData) => {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${Cookies.get('auth')}`,
             },
             body: JSON.stringify(data),
         },
@@ -115,6 +119,7 @@ export const putGenre = async (data: GenreFormData) => {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${Cookies.get('auth')}`,
             },
             body: JSON.stringify(data),
         },
@@ -155,4 +160,21 @@ export const getUsersHasWatched = async (userId: number): Promise<Page<FilmWork>
     const data: Page<FilmWork> = res.json() as unknown as Page<FilmWork>;
 
     return data;
+};
+
+export const putUser = async (data: UserFormData) => {
+    const res = await fetch(
+        `${import.meta.env.VITE_DEV_API_URL}api/v1/users`,
+        {
+            method: 'PUT',
+            headers: {
+                Accept: '*/*',
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${Cookies.get('auth')}`,
+            },
+            body: JSON.stringify(data),
+        },
+    );
+
+    return res;
 };
