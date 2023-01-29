@@ -26,15 +26,21 @@ export interface MovieFormInterface {
 export interface PersonFormInterface {
     firstName: { value: string };
     lastName: { value: string };
-    // genres: Array<GenreSimple>;
-    // occupations: Array<Occupation>;
-    // reviews: Array<Review>;
+}
+
+export interface GenreFormInterface {
+    name: { value: string };
 }
 
 export interface PersonFormData {
     id?: number;
     firstName: string;
     lastName: string;
+}
+
+export interface GenreFormData {
+    id?: number;
+    name: string;
 }
 
 export interface MovieFormData {
@@ -100,6 +106,7 @@ export interface UserSimple {
 
 export interface User extends UserSimple {
     reviews: Array<Review>;
+    profileImg: string;
 }
 
 export interface Review {
