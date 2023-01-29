@@ -32,7 +32,6 @@ export interface GenreFormInterface {
     name: { value: string };
 }
 
-
 export interface PersonFormData {
     id?: number;
     firstName: string;
@@ -178,4 +177,18 @@ export interface Sort {
     empty: boolean;
     sorted: boolean;
     unsorted: boolean;
+}
+
+export interface AuthUser {
+    id: number;
+    name: string;
+    role: string;
+}
+
+export interface DecodedToken {
+    id: number;
+    role: string;
+    sub: string;
+    iat: number;
+    exp: number;
 }

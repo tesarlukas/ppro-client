@@ -1,10 +1,16 @@
 import React, { useContext, useState } from 'react';
 import TextField from './TextField';
-import { LoginCredentials, LoginFormInterface } from '../shared/types';
+import {
+    AuthUser,
+    DecodedToken,
+    LoginCredentials,
+    LoginFormInterface,
+} from '../shared/types';
 import { tryLogin } from '../shared/api';
 import { useNavigate } from 'react-router';
 import { UserContext } from '../context';
 import jwt_decode from 'jwt-decode';
+import Cookies from 'js-cookie';
 
 export const LoginForm: React.FC = () => {
     const [logged, setLogged] = useState<boolean>(true);
@@ -28,11 +34,17 @@ export const LoginForm: React.FC = () => {
         try {
             const res = await tryLogin(credentials);
             const data: data = await res.json();
-            document.cookie = `${credentials.username}=${data.token}`;
-            if (data.token) {
-                setUser(credentials.username);
+            Cookies.set('auth', data.token);
 
-                // console.log(jwt_decode(data.token));
+            if (data.token) {
+                const decodedToken: DecodedToken = jwt_decode(data.token);
+                const newUser: AuthUser = {
+                    id: decodedToken.id,
+                    name: decodedToken.sub,
+                    role: decodedToken.role,
+                };
+
+                setUser(newUser);
                 navigate('/');
             } else {
                 setLogged(false);

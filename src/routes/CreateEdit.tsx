@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import TextField from '../components/TextField';
 import { MovieFormData, MovieFormInterface, Movie } from '../shared/types';
 import { useParams } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { format } from 'date-fns';
+import Cookies from 'js-cookie';
 
 const CreateEdit = () => {
     const { id } = useParams<string>();
@@ -36,6 +37,7 @@ const CreateEdit = () => {
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
+                    Authorization: `Bearer ${Cookies.get('auth')}`,
                 },
                 body: JSON.stringify(data),
             },
@@ -52,6 +54,7 @@ const CreateEdit = () => {
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
+                    Authorization: `Bearer ${Cookies.get('auth')}`,
                 },
                 body: JSON.stringify(data),
             },

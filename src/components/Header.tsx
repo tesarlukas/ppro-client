@@ -1,13 +1,14 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../context';
+import Cookies from 'js-cookie';
 
 export const Header: React.FC = () => {
     const { user, setUser } = useContext(UserContext);
 
     const logout = (): void => {
-        document.cookie = `${user}= ; expires = Thu, 01 Jan 1970 00:00:00 GMT`;
-        setUser('');
+        Cookies.remove('auth');
+        setUser({ id: 0, name: '', role: '' });
     };
 
     return (
@@ -19,7 +20,7 @@ export const Header: React.FC = () => {
                 <Link className="text-black p-2 text-lg" to="/filmworks">
                     Listing
                 </Link>
-                {user === '' ? (
+                {user.name === '' ? (
                     <>
                         <Link className="text-black p-2 text-lg" to="/login">
                             Login
@@ -33,7 +34,7 @@ export const Header: React.FC = () => {
                         <div className="text-black p-2 text-lg">
                             Logged as{' '}
                             <Link to={'/'} className="text-blue-600">
-                                {user}
+                                {user.name}
                             </Link>
                         </div>
                         <button onClick={logout}>Logout</button>
