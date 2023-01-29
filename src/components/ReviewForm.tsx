@@ -84,14 +84,14 @@ const ReviewForm: React.FC<{
                 />
                 {user.name === '' ? (
                     <input
-                        className="mt-4 border border-slate-300 rounded-sm"
+                        className="mt-4 border border-slate-300 rounded-sm p-2"
                         type="submit"
                         disabled
                         value={'You need to be logged in.'}
                     ></input>
                 ) : (
                     <input
-                        className="mt-4 border border-slate-300 rounded-sm"
+                        className="mt-4 border border-slate-300 rounded-sm p-2"
                         type="submit"
                         value={isEditing ? 'Edit a review' : 'Create a review'}
                     ></input>

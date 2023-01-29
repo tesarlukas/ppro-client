@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FaStar } from 'react-icons/fa';
+import { FaPlus, FaStar } from 'react-icons/fa';
 import { Link, useParams } from 'react-router-dom';
 import {
     FilmWork as FilmWorkType,
@@ -106,19 +106,36 @@ const FilmWork: React.FC = () => {
         } as FilmWorkType);
     };
 
-    const addToPlan = async () => {
+    const addToPlan = async (id: number | undefined) => {
         const res = await fetch(
             `${
                 import.meta.env.VITE_DEV_API_URL
-            }api/v1/account/plans-to-watch/1`,
+            }api/v1/account/plans-to-watch/${id}`,
             {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
+                    Authorization: `Bearer ${Cookies.get('auth')}`,
                 },
-                body: JSON.stringify(review),
+            },
+        );
+
+        return res;
+    };
+
+    const markAsWatching = async (id: number | undefined) => {
+        const res = await fetch(
+            `${
+                import.meta.env.VITE_DEV_API_URL
+            }api/v1/account/is-watching/${id}`,
+            {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${Cookies.get('auth')}`,
+                },
             },
         );
 
@@ -133,7 +150,7 @@ const FilmWork: React.FC = () => {
         <>
             <div className="layout">
                 <div className="flex flex-row gap-6 mt-24 ">
-                    <div className="bg-slate-800 p-12 flex flex-col rounded-2xl w-9/12">
+                    <div className="bg-slate-800 p-12 flex flex-col rounded-2xl w-9/12 relative">
                         <div className="flex flex-row justify-between">
                             <h1 className="text-5xl">{movie?.name}</h1>
 
@@ -162,6 +179,26 @@ const FilmWork: React.FC = () => {
                                     </Link>
                                 ),
                             )}
+                        </div>
+                        <div className="flex flex-row flex-wrap absolute bottom-12 gap-2">
+                            <button
+                                className="bg-pink-500 hover:text-pink-500 hover:bg-white border-none transition ease-in"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    addToPlan(movie?.id);
+                                }}
+                            >
+                                Add to plan
+                            </button>
+                            <button
+                                className="bg-lime-600 hover:text-pink-500 hover:bg-white border-none transition ease-in"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    markAsWatching(movie?.id);
+                                }}
+                            >
+                                Mark as watching
+                            </button>
                         </div>
                     </div>
                     <div className="w-3/12">
