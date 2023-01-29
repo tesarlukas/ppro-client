@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import TextField from '../components/TextField';
 import { MovieFormData, MovieFormInterface, Movie } from '../shared/types';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { format } from 'date-fns';
@@ -11,6 +11,7 @@ const CreateEdit = () => {
     const { id } = useParams<string>();
     const [name, setName] = useState<string>();
     const [release, setRelease] = useState<Date>(new Date());
+    const navigate = useNavigate();
 
     const fetchMovie = async (): Promise<Response> => {
         const res = await fetch(
@@ -46,7 +47,6 @@ const CreateEdit = () => {
     };
 
     const editMovie = async (data: MovieFormData) => {
-        console.log(data);
         const res = await fetch(
             `${import.meta.env.VITE_DEV_API_URL}api/v1/movies`,
             {
@@ -59,6 +59,7 @@ const CreateEdit = () => {
                 body: JSON.stringify(data),
             },
         );
+        navigate('/filmworks');
         return res;
     };
 
@@ -75,7 +76,6 @@ const CreateEdit = () => {
     };
 
     const handleEdit = (e: React.FormEvent<HTMLFormElement>) => {
-        console.log('im editing');
         e.preventDefault();
 
         const { title } = e.target as typeof e.target & MovieFormInterface;

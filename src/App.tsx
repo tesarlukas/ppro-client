@@ -17,6 +17,9 @@ import { UserContextProvider } from './context';
 import CreateEditGenre from './routes/CreateEditGenre';
 import UserProfile from './routes/UserProfile';
 import EditUser from './routes/EditUser';
+import PlansToWatch from './routes/PlanToWatchList';
+import WatchingList from './routes/WatchingList';
+import FinishedList from './routes/FinishedList';
 
 const App: React.FC = () => {
     return (
@@ -58,6 +61,18 @@ const App: React.FC = () => {
                             <Route
                                 path="/genre/create"
                                 element={<CreateEditGenre />}
+                            />
+                            <Route
+                                path="/user/plans-to-watch/:id"
+                                element={<PlansToWatch />}
+                            />
+                            <Route
+                                path="/user/is-watching/:id"
+                                element={<WatchingList />}
+                            />
+                            <Route
+                                path="/user/has-watched/:id"
+                                element={<FinishedList />}
                             />
                         </Routes>
                     </div>

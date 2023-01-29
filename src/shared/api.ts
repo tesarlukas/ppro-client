@@ -135,16 +135,22 @@ export const getUser = async (id: number): Promise<User> => {
     return data;
 };
 
-export const getUsersPlansToWatch = async (userId: number): Promise<Page<FilmWork>> => {
+export const getUsersPlansToWatch = async (
+    userId: number,
+): Promise<Page<FilmWork>> => {
     const res = await fetch(
-        `${import.meta.env.VITE_DEV_API_URL}api/v1/users/plans-to-watch/${userId}`,
+        `${
+            import.meta.env.VITE_DEV_API_URL
+        }api/v1/users/plans-to-watch/${userId}`,
     );
     const data: Page<FilmWork> = res.json() as unknown as Page<FilmWork>;
 
     return data;
 };
 
-export const getUsersIsWatching = async (userId: number): Promise<Page<FilmWork>> => {
+export const getUsersIsWatching = async (
+    userId: number,
+): Promise<Page<FilmWork>> => {
     const res = await fetch(
         `${import.meta.env.VITE_DEV_API_URL}api/v1/users/is-watching/${userId}`,
     );
@@ -153,7 +159,9 @@ export const getUsersIsWatching = async (userId: number): Promise<Page<FilmWork>
     return data;
 };
 
-export const getUsersHasWatched = async (userId: number): Promise<Page<FilmWork>> => {
+export const getUsersHasWatched = async (
+    userId: number,
+): Promise<Page<FilmWork>> => {
     const res = await fetch(
         `${import.meta.env.VITE_DEV_API_URL}api/v1/users/has-watched/${userId}`,
     );
@@ -163,16 +171,113 @@ export const getUsersHasWatched = async (userId: number): Promise<Page<FilmWork>
 };
 
 export const putUser = async (data: UserFormData) => {
+    const res = await fetch(`${import.meta.env.VITE_DEV_API_URL}api/v1/users`, {
+        method: 'PUT',
+        headers: {
+            Accept: '*/*',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${Cookies.get('auth')}`,
+        },
+        body: JSON.stringify(data),
+    });
+
+    return res;
+};
+
+export const addToPlan = async (id: number | undefined) => {
     const res = await fetch(
-        `${import.meta.env.VITE_DEV_API_URL}api/v1/users`,
+        `${
+            import.meta.env.VITE_DEV_API_URL
+        }api/v1/account/plans-to-watch/${id}`,
         {
-            method: 'PUT',
+            method: 'POST',
             headers: {
-                Accept: '*/*',
+                Accept: 'application/json',
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${Cookies.get('auth')}`,
             },
-            body: JSON.stringify(data),
+        },
+    );
+
+    return res;
+};
+
+export const markAsFinished = async (id: number | undefined) => {
+    const res = await fetch(
+        `${import.meta.env.VITE_DEV_API_URL}api/v1/account/has-watched/${id}`,
+        {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${Cookies.get('auth')}`,
+            },
+        },
+    );
+
+    return res;
+};
+
+export const markAsWatching = async (id: number | undefined) => {
+    const res = await fetch(
+        `${import.meta.env.VITE_DEV_API_URL}api/v1/account/is-watching/${id}`,
+        {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${Cookies.get('auth')}`,
+            },
+        },
+    );
+
+    return res;
+};
+
+export const removeFromWatching = async (id: number | undefined) => {
+    const res = await fetch(
+        `${
+            import.meta.env.VITE_DEV_API_URL
+        }api/v1/account/plans-to-watch/${id}`,
+        {
+            method: 'DELETE',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${Cookies.get('auth')}`,
+            },
+        },
+    );
+
+    return res;
+};
+
+export const removeFromPlan = async (id: number | undefined) => {
+    const res = await fetch(
+        `${import.meta.env.VITE_DEV_API_URL}api/v1/account//${id}`,
+        {
+            method: 'DELETE',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${Cookies.get('auth')}`,
+            },
+        },
+    );
+
+    return res;
+};
+
+export const removeFromFinished = async (id: number | undefined) => {
+    const res = await fetch(
+        `${import.meta.env.VITE_DEV_API_URL}api/v1/account/has-watched/${id}`,
+        {
+            method: 'DELETE',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${Cookies.get('auth')}`,
+            },
         },
     );
 

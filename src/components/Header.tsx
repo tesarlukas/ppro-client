@@ -33,7 +33,10 @@ export const Header: React.FC = () => {
                     <>
                         <div className="text-black p-2 text-lg">
                             Logged as{' '}
-                            <Link to={'/'} className="text-blue-600">
+                            <Link
+                                to={`/user/${user.id}`}
+                                className="text-blue-600"
+                            >
                                 {user.name}
                             </Link>
                         </div>
