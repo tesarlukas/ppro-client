@@ -1,15 +1,32 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../context';
 import Cookies from 'js-cookie';
+import jwt_decode from 'jwt-decode';
+import { DecodedToken } from '../shared/types';
 
 export const Header: React.FC = () => {
     const { user, setUser } = useContext(UserContext);
+    const navigate = useNavigate();
 
     const logout = (): void => {
         Cookies.remove('auth');
         setUser({ id: 0, name: '', role: '' });
+        navigate('/');
     };
+
+    useEffect(() => {
+        if (Cookies.get('auth')) {
+            const userData: DecodedToken = jwt_decode(
+                Cookies.get('auth') as string,
+            );
+            setUser({
+                id: userData.id,
+                name: userData.sub,
+                role: userData.role,
+            });
+        }
+    }, []);
 
     return (
         <header className="flex bg-white w-screen h-24 justify-between items-center p-4 shadow-md">

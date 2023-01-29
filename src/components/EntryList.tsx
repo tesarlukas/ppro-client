@@ -22,6 +22,15 @@ const EntryList: React.FC<Props> = ({
 }: Props) => {
     return (
         <div className="bg-slate-800 flex flex-wrap flex-col content-center w-9/12 p-4 rounded-xl mt-16">
+            {entries.length === 0 ? (
+                <div className="flex flex-row flex-wrap items-center bg-slate-900 rounded-xl p-2">
+                    <h3 className="text-2xl h-fit p-1">
+                        There are no entries in the list
+                    </h3>
+                </div>
+            ) : (
+                ''
+            )}
             {entries?.map((entry: FilmWork) => {
                 return (
                     <div
