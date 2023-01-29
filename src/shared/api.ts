@@ -38,7 +38,6 @@ export const tryRegister = async (
         body: JSON.stringify(credentials),
     });
 };
-
 export const getPerson = async (id: number): Promise<Person> => {
     const res = await fetch(
         `${import.meta.env.VITE_DEV_API_URL}api/v1/people/${id}`,
