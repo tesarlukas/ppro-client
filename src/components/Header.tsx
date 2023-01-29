@@ -8,7 +8,6 @@ export const Header: React.FC = () => {
 
     const logout = (): void => {
         Cookies.remove('auth');
-        document.cookie = `${user.name}= ; expires = Thu, 01 Jan 1970 00:00:00 GMT`;
         setUser({ id: 0, name: '', role: '' });
     };
 
