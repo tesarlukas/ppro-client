@@ -11,11 +11,11 @@ import FilmWorks from './routes/FilmWorks';
 import FilmWork from './routes/FilmWork';
 import Person from './routes/Person';
 import Header from './components/Header';
-import UserProfile from './routes/UserProfile';
 import CreateEdit from './routes/CreateEdit';
 import CreateEditPerson from './routes/CreateEditPerson';
 import { UserContextProvider } from './context';
-
+import CreateEditGenre from './routes/CreateEditGenre';
+import UserProfile from './routes/UserProfile';
 
 const App: React.FC = () => {
     return (
@@ -38,8 +38,22 @@ const App: React.FC = () => {
                             <Route path="/create" element={<CreateEdit />} />
                             <Route path="/edit/:id" element={<CreateEdit />} />
                             <Route path="*" element={<Error />} />
-                            <Route path="/person/edit/:id" element={<CreateEditPerson />} />
-                            <Route path="/person/create" element={<CreateEditPerson />} />
+                            <Route
+                                path="/person/edit/:id"
+                                element={<CreateEditPerson />}
+                            />
+                            <Route
+                                path="/person/create"
+                                element={<CreateEditPerson />}
+                            />
+                            <Route
+                                path="/genre/edit/:id"
+                                element={<CreateEditGenre />}
+                            />
+                            <Route
+                                path="/genre/create"
+                                element={<CreateEditGenre />}
+                            />
                         </Routes>
                     </div>
                 </UserContextProvider>
