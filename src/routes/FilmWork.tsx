@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FaPlus, FaStar } from 'react-icons/fa';
+import { FaStar } from 'react-icons/fa';
 import { Link, useParams } from 'react-router-dom';
 import {
     FilmWork as FilmWorkType,
@@ -10,6 +10,7 @@ import {
 import Reviews from '../components/Reviews';
 import ReviewForm from '../components/ReviewForm';
 import Cookies from 'js-cookie';
+import { addToPlan, markAsFinished, markAsWatching } from '../shared/api';
 
 const FilmWork: React.FC = () => {
     const { id } = useParams();
@@ -106,42 +107,6 @@ const FilmWork: React.FC = () => {
         } as FilmWorkType);
     };
 
-    const addToPlan = async (id: number | undefined) => {
-        const res = await fetch(
-            `${
-                import.meta.env.VITE_DEV_API_URL
-            }api/v1/account/plans-to-watch/${id}`,
-            {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${Cookies.get('auth')}`,
-                },
-            },
-        );
-
-        return res;
-    };
-
-    const markAsWatching = async (id: number | undefined) => {
-        const res = await fetch(
-            `${
-                import.meta.env.VITE_DEV_API_URL
-            }api/v1/account/is-watching/${id}`,
-            {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${Cookies.get('auth')}`,
-                },
-            },
-        );
-
-        return res;
-    };
-
     useEffect(() => {
         getFilmWork();
     }, []);
@@ -191,13 +156,22 @@ const FilmWork: React.FC = () => {
                                 Add to plan
                             </button>
                             <button
-                                className="bg-lime-600 hover:text-pink-500 hover:bg-white border-none transition ease-in"
+                                className="bg-lime-600 hover:text-lime-600 hover:bg-white border-none transition ease-in"
                                 onClick={(e) => {
                                     e.preventDefault();
                                     markAsWatching(movie?.id);
                                 }}
                             >
                                 Mark as watching
+                            </button>
+                            <button
+                                className="bg-blue-600 hover:text-blue-600 hover:bg-white border-none transition ease-in"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    markAsFinished(movie?.id);
+                                }}
+                            >
+                                Mark as finished
                             </button>
                         </div>
                     </div>
