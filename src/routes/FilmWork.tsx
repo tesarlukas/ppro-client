@@ -139,7 +139,7 @@ const FilmWork: React.FC = () => {
 
                             <div className="text-5xl flex">
                                 {movie?.audienceScore}/10{' '}
-                                <FaStar className="bg text-yellow-500 ml-2" />
+                                <FaStar className="bg text-yellow-300 ml-2" />
                             </div>
                         </div>
                         <div>
