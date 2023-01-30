@@ -84,6 +84,13 @@ const UserProfile: React.FC = () => {
         );
     };
 
+    const showImg = () => {
+        if (user?.profileImg === undefined)
+            return '/assets/images/defaultUsrImg.png';
+
+        return `${import.meta.env.VITE_DEV_API_URL}api/v1/${user?.profileImg}`;
+    };
+
     useEffect(() => {
         fetchUser();
     }, []);
@@ -93,14 +100,7 @@ const UserProfile: React.FC = () => {
             <div className="flex flex-row gap-6 mt-24 justify-center">
                 <div className="flex flex-col bg-slate-800 rounded-2xl w-1/4 p-8">
                     <h6 className="text-center text-5xl">{user?.username}</h6>
-                    <img
-                        className="w-32 mx-auto my-4 h-32"
-                        src={
-                            import.meta.env.VITE_DEV_API_URL +
-                            'api/v1/' +
-                            user?.profileImg
-                        }
-                    />
+                    <img className="w-32 mx-auto my-4 h-32" src={showImg()} />
                     {checkEditability()}
                 </div>
                 <div className="flex flex-col gap-3 w-1/3 justify-center bg-slate-800 rounded-2xl p-8">
