@@ -63,7 +63,7 @@ export const postPerson = async (data: PersonFormData) => {
         },
     );
 
-    const newPerson: Person = await res.json() as unknown as Person;
+    const newPerson: Person = (await res.json()) as unknown as Person;
 
     return newPerson;
 };
@@ -87,16 +87,14 @@ export const getGenre = async (id: number): Promise<Genre> => {
     const res = await fetch(
         `${import.meta.env.VITE_DEV_API_URL}api/v1/genres/${id}`,
     );
-    const data: Genre = await res.json() as unknown as Genre;
+    const data: Genre = (await res.json()) as unknown as Genre;
 
     return data;
 };
 
 export const getGenres = async (): Promise<Page<Genre>> => {
-    const res = await fetch(
-        `${import.meta.env.VITE_DEV_API_URL}api/v1/genres`,
-    );
-    const data: Page<Genre> = await res.json() as unknown as Page<Genre>;
+    const res = await fetch(`${import.meta.env.VITE_DEV_API_URL}api/v1/genres`);
+    const data: Page<Genre> = (await res.json()) as unknown as Page<Genre>;
 
     return data;
 };
@@ -115,7 +113,7 @@ export const postGenre = async (data: GenreFormData) => {
         },
     );
 
-    const newGenre: Genre = await res.json() as unknown as Genre;
+    const newGenre: Genre = (await res.json()) as unknown as Genre;
 
     return newGenre;
 };
@@ -139,7 +137,7 @@ export const getUser = async (id: number): Promise<User> => {
     const res = await fetch(
         `${import.meta.env.VITE_DEV_API_URL}api/v1/users/${id}`,
     );
-    const data: User = await res.json() as unknown as User;
+    const data: User = (await res.json()) as unknown as User;
 
     return data;
 };
@@ -152,7 +150,8 @@ export const getUsersPlansToWatch = async (
             import.meta.env.VITE_DEV_API_URL
         }api/v1/users/plans-to-watch/${userId}`,
     );
-    const data: Page<FilmWork> = await res.json() as unknown as Page<FilmWork>;
+    const data: Page<FilmWork> =
+        (await res.json()) as unknown as Page<FilmWork>;
 
     return data;
 };
@@ -163,7 +162,8 @@ export const getUsersIsWatching = async (
     const res = await fetch(
         `${import.meta.env.VITE_DEV_API_URL}api/v1/users/is-watching/${userId}`,
     );
-    const data: Page<FilmWork> = await res.json() as unknown as Page<FilmWork>;
+    const data: Page<FilmWork> =
+        (await res.json()) as unknown as Page<FilmWork>;
 
     return data;
 };
@@ -174,7 +174,8 @@ export const getUsersHasWatched = async (
     const res = await fetch(
         `${import.meta.env.VITE_DEV_API_URL}api/v1/users/has-watched/${userId}`,
     );
-    const data: Page<FilmWork> = await res.json() as unknown as Page<FilmWork>;
+    const data: Page<FilmWork> =
+        (await res.json()) as unknown as Page<FilmWork>;
 
     return data;
 };

@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router';
 import { UserContext } from '../context';
 import jwt_decode from 'jwt-decode';
 import Cookies from 'js-cookie';
+import { toast } from 'react-toastify';
 
 export const LoginForm: React.FC = () => {
     const [logged, setLogged] = useState<boolean>(true);
@@ -46,8 +47,10 @@ export const LoginForm: React.FC = () => {
 
                 setUser(newUser);
                 navigate('/');
+                toast.success('Successfully logged in');
             } else {
                 setLogged(false);
+                toast.error('Wrong credentials');
             }
         } catch (error) {
             return;
@@ -68,11 +71,6 @@ export const LoginForm: React.FC = () => {
                 type="submit"
                 value="Login"
             ></input>
-            {logged ? (
-                ''
-            ) : (
-                <h6 className="text-red-500 mt-1">Wrong credentials</h6>
-            )}
         </form>
     );
 };

@@ -20,6 +20,8 @@ import EditUser from './routes/EditUser';
 import PlansToWatch from './routes/PlanToWatchList';
 import WatchingList from './routes/WatchingList';
 import FinishedList from './routes/FinishedList';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App: React.FC = () => {
     return (
@@ -27,6 +29,18 @@ const App: React.FC = () => {
             <Router>
                 <UserContextProvider>
                     <Header />
+                    <ToastContainer
+                        position="bottom-left"
+                        autoClose={5000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme="dark"
+                    />
                     <div className="w-screen flex flex-col">
                         <Routes>
                             <Route path="/" element={<Home />} />
