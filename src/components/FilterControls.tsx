@@ -4,7 +4,7 @@ import { Genre, Page } from '../shared/types';
 
 interface FilterControlsProps {
     onGenreClick: (id: number) => void;
-    onSearchChange: React.ChangeEventHandler<HTMLInputElement> | undefined;
+    onSearchChange: (query: string) => void;
 }
 
 const FilterControls: React.FC<FilterControlsProps> = (
@@ -12,6 +12,7 @@ const FilterControls: React.FC<FilterControlsProps> = (
 ) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [genres, setGenres] = useState<Array<Genre>>([]);
+    const [query, setQuery] = useState<string>();
 
     const fetchGenres = async (): Promise<void> => {
         const data: Array<Genre> = (await getGenres()).content;
@@ -27,9 +28,15 @@ const FilterControls: React.FC<FilterControlsProps> = (
         setIsOpen(!isOpen);
     };
 
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value: string = e.target.value as string;
+
+        if (value.length > 0) props.onSearchChange(value);
+    };
+
     useEffect(() => {
         fetchGenres();
-    });
+    }, []);
 
     return (
         <div className="z-9 h-11 mt-8 flex flex-row justify-between bg-gray-200 shadow-lg rounded-lg">
@@ -61,7 +68,7 @@ const FilterControls: React.FC<FilterControlsProps> = (
                 </button>
                 <div
                     id="dropdownGenres"
-                    className={`z-10 ${
+                    className={`z-10 relative ${
                         isOpen ? 'block' : 'hidden'
                     } bg-white rounded-lg shadow w-60 dark:bg-gray-700`}
                 >
@@ -71,7 +78,7 @@ const FilterControls: React.FC<FilterControlsProps> = (
                     >
                         {genres.map((item: Genre): JSX.Element => {
                             return (
-                                <li>
+                                <li key={item.id}>
                                     <h6
                                         onClick={(e) => handleClick(item.id)}
                                         className="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 text-black"
@@ -88,9 +95,10 @@ const FilterControls: React.FC<FilterControlsProps> = (
                 <div className="mb-3 xl:w-96">
                     <input
                         type="search"
-                        onChange={props.onSearchChange}
+                        onChange={handleChange}
                         className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                         id="exampleSearch"
+                        value={query}
                         placeholder="Search"
                     />
                 </div>

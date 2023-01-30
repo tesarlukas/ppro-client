@@ -4,8 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import 'react-datepicker/dist/react-datepicker.css';
 import { getUser, putUser, sendUserProfileImg } from '../shared/api';
 import { User, UserFormData, UserFormInterface } from '../shared/types';
-import { da } from 'date-fns/locale';
-import Cookies from 'js-cookie';
+import { toast } from 'react-toastify';
 
 const EditUser: React.FC = () => {
     const { id } = useParams<string>();
@@ -24,16 +23,7 @@ const EditUser: React.FC = () => {
         setUsername(data.username);
     };
 
-    const editGenre = async (data: UserFormData) => {
-        console.log(data);
-        const res = await putUser(data);
-
-        if (res === undefined) throw new Error('Failed to edit the user!');
-
-        navigate(`/user/${id}`);
-    };
-
-    const handleEdit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleEdit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         try {
@@ -52,11 +42,13 @@ const EditUser: React.FC = () => {
                 username: username.value,
             };
 
-            putUser(data);
+            await putUser(data);
+
+            toast.success('User updated successfully');
 
             navigate(`/user/${id}`);
         } catch (error: any) {
-            setErrorMessage(error.message);
+            toast.error(error.message);
         }
     };
 
@@ -81,8 +73,12 @@ const EditUser: React.FC = () => {
                 );
 
             await sendUserProfileImg(parseInt(id), file);
+
+            toast.success('Img updated succesfully!');
+
+            navigate(`/user/${id}`);
         } catch (error: any) {
-            setErrorMessage(error.message);
+            toast.success(error.message);
         }
     };
 
@@ -92,13 +88,6 @@ const EditUser: React.FC = () => {
                 onSubmit={handleEdit}
                 className="flex flex-col bg-slate-800 p-4 max-w-xs rounded-xl mt-48"
             >
-                <div
-                    className={`bg-red-800 p-3 mb-3 rounded-md ${
-                        errorMessage ? '' : 'hidden'
-                    } text-center`}
-                >
-                    {errorMessage}
-                </div>
                 <h1 className="text-3xl text-center pb-8">Edit a user</h1>
                 <h6>Name</h6>
                 <TextField type="text" name="username" value={username} />

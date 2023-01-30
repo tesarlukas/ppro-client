@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie';
 import {
+    AuthenticationResponse,
     FilmWork,
     Genre,
     GenreFormData,
@@ -119,6 +120,26 @@ export const postGenre = async (data: GenreFormData) => {
     return newGenre;
 };
 
+export const getMoviesByGenre = async (genreId: number): Promise<Page<FilmWork>> => {
+    const res = await fetch(
+        `${import.meta.env.VITE_DEV_API_URL}api/v1/movies/by-genres?ids=${genreId}`,
+    );
+    const data: Page<FilmWork> = await res.json() as unknown as Page<FilmWork>;
+
+    return data;
+
+}
+
+export const searchMoviesByName = async (query: string): Promise<Page<FilmWork>> => {
+    const res = await fetch(
+        `${import.meta.env.VITE_DEV_API_URL}api/v1/movies/search?query=${query}`,
+    );
+    const data: Page<FilmWork> = await res.json() as unknown as Page<FilmWork>;
+
+    return data;
+
+}
+
 export const putGenre = async (data: GenreFormData) => {
     const res = await fetch(
         `${import.meta.env.VITE_DEV_API_URL}api/v1/genres`,
@@ -191,6 +212,13 @@ export const putUser = async (data: UserFormData) => {
         },
         body: JSON.stringify(data),
     });
+
+    const newToken: AuthenticationResponse = await res.json();
+
+    if (newToken === undefined)
+        throw new Error("Failed updating the user! JWT token is invalid!")
+    
+    Cookies.set('auth',newToken.token)
 
     return res;
 };
@@ -313,6 +341,22 @@ export const sendUserProfileImg = async (userId: number, file: File) => {
 
     await fetch(
         `${import.meta.env.VITE_DEV_API_URL}api/v1/files/imgs/usr/upload/${userId}`,
+        {
+            method: 'POST',
+            body: formData,
+            headers: {
+                Authorization: `Bearer ${Cookies.get('auth')}`,
+            },
+        },
+    );
+}
+
+export const sendFilmworkImg = async (filmworkId: number, file: File) => {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+
+    await fetch(
+        `${import.meta.env.VITE_DEV_API_URL}api/v1/files/imgs/filmwork/upload/${filmworkId}`,
         {
             method: 'POST',
             body: formData,
