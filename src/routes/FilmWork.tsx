@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FaStar } from 'react-icons/fa';
 import { Link, useParams } from 'react-router-dom';
 import {
@@ -11,12 +11,14 @@ import Reviews from '../components/Reviews';
 import ReviewForm from '../components/ReviewForm';
 import Cookies from 'js-cookie';
 import { addToPlan, markAsFinished, markAsWatching } from '../shared/api';
+import { UserContext } from '../context';
 
 const FilmWork: React.FC = () => {
     const { id } = useParams();
     const [movie, setMovie] = useState<FilmWorkType>();
     const [review, setReview] = useState<ReviewFormData>();
     const [isEditing, setIsEditing] = useState<boolean>();
+    const { user } = useContext(UserContext);
 
     const getFilmWork = async () => {
         const res = await fetch(
@@ -146,33 +148,39 @@ const FilmWork: React.FC = () => {
                             )}
                         </div>
                         <div className="flex flex-row flex-wrap absolute bottom-12 gap-2">
-                            <button
-                                className="bg-pink-500 hover:text-pink-500 hover:bg-white border-none transition ease-in"
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    addToPlan(movie?.id);
-                                }}
-                            >
-                                Add to plan
-                            </button>
-                            <button
-                                className="bg-lime-600 hover:text-lime-600 hover:bg-white border-none transition ease-in"
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    markAsWatching(movie?.id);
-                                }}
-                            >
-                                Mark as watching
-                            </button>
-                            <button
-                                className="bg-blue-600 hover:text-blue-600 hover:bg-white border-none transition ease-in"
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    markAsFinished(movie?.id);
-                                }}
-                            >
-                                Mark as finished
-                            </button>
+                            {user.name !== '' ? (
+                                <>
+                                    <button
+                                        className="bg-pink-500 hover:text-pink-500 hover:bg-white border-none transition ease-in"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            addToPlan(movie?.id);
+                                        }}
+                                    >
+                                        Add to plan
+                                    </button>
+                                    <button
+                                        className="bg-lime-600 hover:text-lime-600 hover:bg-white border-none transition ease-in"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            markAsWatching(movie?.id);
+                                        }}
+                                    >
+                                        Mark as watching
+                                    </button>
+                                    <button
+                                        className="bg-blue-600 hover:text-blue-600 hover:bg-white border-none transition ease-in"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            markAsFinished(movie?.id);
+                                        }}
+                                    >
+                                        Mark as finished
+                                    </button>
+                                </>
+                            ) : (
+                                ''
+                            )}
                         </div>
                     </div>
                     <div className="w-3/12">

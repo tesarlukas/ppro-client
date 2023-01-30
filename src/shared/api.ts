@@ -11,6 +11,7 @@ import {
     User,
     UserFormData,
 } from './types';
+import { toast } from 'react-toastify';
 
 export const tryLogin = async (
     credentials: LoginCredentials,
@@ -208,6 +209,9 @@ export const addToPlan = async (id: number | undefined) => {
             },
         },
     );
+    res.status === 417
+        ? toast.warn('Already added')
+        : toast.success('Successfully added');
 
     return res;
 };
@@ -224,6 +228,9 @@ export const markAsFinished = async (id: number | undefined) => {
             },
         },
     );
+    res.status === 417
+        ? toast.warn('Already added')
+        : toast.success('Successfully added');
 
     return res;
 };
@@ -240,6 +247,9 @@ export const markAsWatching = async (id: number | undefined) => {
             },
         },
     );
+    res.status === 417
+        ? toast.warn('Already added')
+        : toast.success('Successfully added');
 
     return res;
 };
@@ -258,6 +268,7 @@ export const removeFromWatching = async (id: number | undefined) => {
             },
         },
     );
+    toast.success('Successfully removed');
 
     return res;
 };
@@ -274,6 +285,7 @@ export const removeFromPlan = async (id: number | undefined) => {
             },
         },
     );
+    toast.success('Successfully removed');
 
     return res;
 };
@@ -290,6 +302,7 @@ export const removeFromFinished = async (id: number | undefined) => {
             },
         },
     );
+    toast.success('Successfully removed');
 
     return res;
 };

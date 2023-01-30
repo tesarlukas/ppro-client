@@ -4,6 +4,7 @@ import { UserContext } from '../context';
 import Cookies from 'js-cookie';
 import jwt_decode from 'jwt-decode';
 import { DecodedToken } from '../shared/types';
+import { toast } from 'react-toastify';
 
 export const Header: React.FC = () => {
     const { user, setUser } = useContext(UserContext);
@@ -13,6 +14,7 @@ export const Header: React.FC = () => {
         Cookies.remove('auth');
         setUser({ id: 0, name: '', role: '' });
         navigate('/');
+        toast('Logged out');
     };
 
     useEffect(() => {

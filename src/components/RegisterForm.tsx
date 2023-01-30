@@ -32,7 +32,7 @@ export const RegisterForm: React.FC = () => {
             setTimeout(() => {
                 navigate('/login');
             }, 1000);
-            toast.error('Successfully registered');
+            toast.success('Successfully registered');
         } catch (error) {
             console.error(error);
         }
@@ -61,11 +61,6 @@ export const RegisterForm: React.FC = () => {
                     type="submit"
                     value="Register"
                 ></input>
-                {registered ? (
-                    <h6 className="text-green-500">Successfully registered!</h6>
-                ) : (
-                    ''
-                )}
             </form>
         </div>
     );
