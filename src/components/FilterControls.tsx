@@ -31,7 +31,7 @@ const FilterControls: React.FC<FilterControlsProps> = (
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value: string = e.target.value as string;
 
-        if (value.length > 0) props.onSearchChange(value);
+        if (value.length >= 0) props.onSearchChange(value);
     };
 
     useEffect(() => {
