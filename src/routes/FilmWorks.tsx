@@ -45,7 +45,7 @@ export const FilmWorks: React.FC = () => {
         const data: Page<FilmWork> = await getMoviesByGenre(id);
 
         if (data === undefined)
-            throw new Error('Couldn\'t fetch movies by genres!');
+            throw new Error("Couldn't fetch movies by genres!");
 
         setFilmWorks(data);
     };
@@ -53,8 +53,14 @@ export const FilmWorks: React.FC = () => {
     const handleSearch = async (query: string) => {
         const data: Page<FilmWork> = await searchMoviesByName(query);
 
+        if (query.length === 0) {
+            console.log('cringe');
+            getFilmWorks();
+            return;
+        }
+
         if (data === undefined)
-            throw new Error('Couldn\'t fetch movies by name!');
+            throw new Error("Couldn't fetch movies by name!");
 
         setFilmWorks(data);
     };

@@ -120,25 +120,33 @@ export const postGenre = async (data: GenreFormData) => {
     return newGenre;
 };
 
-export const getMoviesByGenre = async (genreId: number): Promise<Page<FilmWork>> => {
+export const getMoviesByGenre = async (
+    genreId: number,
+): Promise<Page<FilmWork>> => {
     const res = await fetch(
-        `${import.meta.env.VITE_DEV_API_URL}api/v1/movies/by-genres?ids=${genreId}`,
+        `${
+            import.meta.env.VITE_DEV_API_URL
+        }api/v1/movies/by-genres?ids=${genreId}`,
     );
-    const data: Page<FilmWork> = await res.json() as unknown as Page<FilmWork>;
+    const data: Page<FilmWork> =
+        (await res.json()) as unknown as Page<FilmWork>;
 
     return data;
+};
 
-}
-
-export const searchMoviesByName = async (query: string): Promise<Page<FilmWork>> => {
+export const searchMoviesByName = async (
+    query: string,
+): Promise<Page<FilmWork>> => {
     const res = await fetch(
-        `${import.meta.env.VITE_DEV_API_URL}api/v1/movies/search?query=${query}`,
+        `${
+            import.meta.env.VITE_DEV_API_URL
+        }api/v1/movies/search?query=${query}`,
     );
-    const data: Page<FilmWork> = await res.json() as unknown as Page<FilmWork>;
+    const data: Page<FilmWork> =
+        (await res.json()) as unknown as Page<FilmWork>;
 
     return data;
-
-}
+};
 
 export const putGenre = async (data: GenreFormData) => {
     const res = await fetch(
@@ -216,9 +224,9 @@ export const putUser = async (data: UserFormData) => {
     const newToken: AuthenticationResponse = await res.json();
 
     if (newToken === undefined)
-        throw new Error("Failed updating the user! JWT token is invalid!")
-    
-    Cookies.set('auth',newToken.token)
+        throw new Error('Failed updating the user! JWT token is invalid!');
+
+    Cookies.set('auth', newToken.token);
 
     return res;
 };
@@ -340,7 +348,9 @@ export const sendUserProfileImg = async (userId: number, file: File) => {
     formData.append('file', file);
 
     await fetch(
-        `${import.meta.env.VITE_DEV_API_URL}api/v1/files/imgs/usr/upload/${userId}`,
+        `${
+            import.meta.env.VITE_DEV_API_URL
+        }api/v1/files/imgs/usr/upload/${userId}`,
         {
             method: 'POST',
             body: formData,
@@ -349,14 +359,16 @@ export const sendUserProfileImg = async (userId: number, file: File) => {
             },
         },
     );
-}
+};
 
 export const sendFilmworkImg = async (filmworkId: number, file: File) => {
     const formData: FormData = new FormData();
     formData.append('file', file);
 
     await fetch(
-        `${import.meta.env.VITE_DEV_API_URL}api/v1/files/imgs/filmwork/upload/${filmworkId}`,
+        `${
+            import.meta.env.VITE_DEV_API_URL
+        }api/v1/files/imgs/filmwork/upload/${filmworkId}`,
         {
             method: 'POST',
             body: formData,
@@ -365,4 +377,4 @@ export const sendFilmworkImg = async (filmworkId: number, file: File) => {
             },
         },
     );
-}
+};

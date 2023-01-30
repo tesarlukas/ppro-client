@@ -1,6 +1,6 @@
-import React, { MouseEventHandler, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getGenres } from '../shared/api';
-import { Genre, Page } from '../shared/types';
+import { Genre } from '../shared/types';
 
 interface FilterControlsProps {
     onGenreClick: (id: number) => void;
@@ -31,7 +31,7 @@ const FilterControls: React.FC<FilterControlsProps> = (
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value: string = e.target.value as string;
 
-        if (value.length > 0) props.onSearchChange(value);
+        if (value.length >= 0) props.onSearchChange(value);
     };
 
     useEffect(() => {
@@ -39,13 +39,13 @@ const FilterControls: React.FC<FilterControlsProps> = (
     }, []);
 
     return (
-        <div className="z-9 h-11 mt-8 flex flex-row justify-between bg-gray-200 shadow-lg rounded-lg">
+        <div className="z-9 mt-8 flex flex-row justify-between items-center bg-gray-200 shadow-lg rounded-lg p-2 gap-2">
             <div>
                 <button
                     id="dropdownGenresButton"
                     data-dropdown-toggle="dropdownGenres"
                     data-dropdown-placement="bottom"
-                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    className="text-whitea bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     type="button"
                     onClick={handleOpen}
                 >
@@ -68,7 +68,7 @@ const FilterControls: React.FC<FilterControlsProps> = (
                 </button>
                 <div
                     id="dropdownGenres"
-                    className={`z-10 relative ${
+                    className={`z-10 absolute ${
                         isOpen ? 'block' : 'hidden'
                     } bg-white rounded-lg shadow w-60 dark:bg-gray-700`}
                 >
@@ -91,8 +91,8 @@ const FilterControls: React.FC<FilterControlsProps> = (
                     </ul>
                 </div>
             </div>
-            <div className="flex justify-center">
-                <div className="mb-3 xl:w-96">
+            <div className="flex justify-center items-center">
+                <div className="xl:w-96">
                     <input
                         type="search"
                         onChange={handleChange}

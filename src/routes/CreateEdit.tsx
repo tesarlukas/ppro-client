@@ -47,6 +47,7 @@ const CreateEdit = () => {
                 body: JSON.stringify(data),
             },
         );
+        toast.success('Movie created');
         return res;
     };
 
@@ -64,6 +65,7 @@ const CreateEdit = () => {
             },
         );
         navigate('/filmworks');
+        toast.success('Movie edited');
         return res;
     };
 
@@ -106,7 +108,7 @@ const CreateEdit = () => {
 
             if (id === undefined)
                 throw new Error(
-                    'Failed to edit the profile img! user\'s ID is invalid!',
+                    "Failed to edit the profile img! user's ID is invalid!",
                 );
 
             await sendFilmworkImg(parseInt(id), file);
