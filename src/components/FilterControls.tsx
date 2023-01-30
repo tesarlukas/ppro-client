@@ -29,7 +29,7 @@ const FilterControls: React.FC<FilterControlsProps> = (
 
     useEffect(() => {
         fetchGenres();
-    });
+    }, []);
 
     return (
         <div className="z-9 h-11 mt-8 flex flex-row justify-between bg-gray-200 shadow-lg rounded-lg">

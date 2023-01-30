@@ -275,7 +275,9 @@ export const removeFromWatching = async (id: number | undefined) => {
 
 export const removeFromPlan = async (id: number | undefined) => {
     const res = await fetch(
-        `${import.meta.env.VITE_DEV_API_URL}api/v1/account//${id}`,
+        `${
+            import.meta.env.VITE_DEV_API_URL
+        }api/v1/account/plans-to-watch/${id}`,
         {
             method: 'DELETE',
             headers: {
