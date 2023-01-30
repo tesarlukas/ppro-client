@@ -6,11 +6,15 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { format } from 'date-fns';
 import Cookies from 'js-cookie';
+import { sendFilmworkImg, sendUserProfileImg } from '../shared/api';
+import { toast } from 'react-toastify';
 
 const CreateEdit = () => {
     const { id } = useParams<string>();
     const [name, setName] = useState<string>();
     const [release, setRelease] = useState<Date>(new Date());
+    const [errorMessage, setErrorMessage] = useState<string>();
+
     const navigate = useNavigate();
 
     const fetchMovie = async (): Promise<Response> => {
@@ -89,6 +93,28 @@ const CreateEdit = () => {
         editMovie(data);
     };
 
+    const handleFileSubmit = async (
+        e: React.FormEvent<HTMLFormElement>,
+    ): Promise<void> => {
+        try {
+            e.preventDefault();
+
+            const file: File = (e.target as any)[0].files[0];
+
+            if (file === undefined)
+                throw new Error('File is not defined! Please add a file.');
+
+            if (id === undefined)
+                throw new Error(
+                    'Failed to edit the profile img! user\'s ID is invalid!',
+                );
+
+            await sendFilmworkImg(parseInt(id), file);
+        } catch (error: any) {
+            toast.error(error.message);
+        }
+    };
+
     useEffect(() => {
         if (id !== undefined) {
             fetchMovie();
@@ -106,7 +132,7 @@ const CreateEdit = () => {
                 <TextField type="text" name="title" value={name} />
                 <h6>Release date</h6>
                 <DatePicker
-                    className="bg-slate-600 border-slate-300"
+                    className="bg-slate-600 w-full border-slate-300"
                     selected={release}
                     onChange={(date: Date) => setRelease(date)}
                 />
@@ -117,6 +143,18 @@ const CreateEdit = () => {
                         id === undefined ? 'Create a movie' : 'Edit the movie'
                     }
                 ></input>
+            </form>
+            <form
+                encType="multipart/form-data"
+                className="flex flex-col bg-slate-800 p-4 rounded-xl mt-2"
+                onSubmit={(e) => handleFileSubmit(e)}
+            >
+                <input type="file" name="file" />
+                <input
+                    className="mt-4 border border-slate-300"
+                    type="submit"
+                    value="Add image"
+                />
             </form>
         </div>
     );

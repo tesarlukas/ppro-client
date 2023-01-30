@@ -6,7 +6,7 @@ export interface FilmWork {
     genres: Array<GenreSimple>;
     occupations: Array<Occupation>;
     reviews: Array<Review>;
-    imgPaths: FilmWorkImage;
+    img?: string;
 }
 
 export interface FilmWorkImage {
@@ -205,3 +205,7 @@ export interface DecodedToken {
     iat: number;
     exp: number;
 }
+
+export type AuthenticationResponse = {
+    token: string;
+};

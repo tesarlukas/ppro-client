@@ -11,10 +11,17 @@ export const FilmWorkCard: React.FC<{
     const { user } = useContext(UserContext);
     const navigate = useNavigate();
 
+    const getImgPath = (): string => {
+        if (filmwork.img)
+            return `${import.meta.env.VITE_DEV_API_URL}api/v1/${filmwork.img}`;
+
+        return 'assets/images/movie.jpg';
+    };
+
     return (
         <div className="relative bg-gray-900 flex flex-col h-96 w-64 rounded-xl shadow-xl hover:-translate-y-1 transition ease-out hover:scale-105">
             <img
-                src="assets/images/movie.jpg"
+                src={getImgPath()}
                 className="h-64 object-cover rounded-t-xl"
             />
             <div className="flex flex-col py-3 ">
