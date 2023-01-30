@@ -3,6 +3,7 @@ import { RegisterCredentials, RegisterFormInterface } from '../shared/types';
 import { tryRegister } from '../shared/api';
 import TextField from './TextField';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export const RegisterForm: React.FC = () => {
     const [registered, setRegistered] = useState<boolean>();
@@ -14,7 +15,7 @@ export const RegisterForm: React.FC = () => {
             e.target as typeof e.target & RegisterFormInterface;
 
         if (password.value !== passwordRepeat.value)
-            return alert('Passwords do not match!');
+            return toast.error('Passwords do not match!');
 
         const credentials: RegisterCredentials = {
             email: email.value,
@@ -25,12 +26,13 @@ export const RegisterForm: React.FC = () => {
         try {
             const res = await tryRegister(credentials);
             const data = await res.json();
+            if (!data.token)
+                return toast.error('Something\'s wrong with your credentials');
             setRegistered(true);
             setTimeout(() => {
                 navigate('/login');
             }, 1000);
-
-            if (data.token) console.log('happy');
+            toast.success('Successfully registered');
         } catch (error) {
             console.error(error);
         }
@@ -59,11 +61,6 @@ export const RegisterForm: React.FC = () => {
                     type="submit"
                     value="Register"
                 ></input>
-                {registered ? (
-                    <h6 className="text-green-500">Successfully registered!</h6>
-                ) : (
-                    ''
-                )}
             </form>
         </div>
     );

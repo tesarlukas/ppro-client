@@ -39,6 +39,10 @@
     @apply flex flex-wrap justify-center content-center h-16 w-16 shadow-xl rounded-full transition ease-in border-none;
 }
 
+.admin-control {
+    @apply flex flex-wrap justify-center content-center p-4 shadow-xl rounded-xl transition ease-in border-none;
+}
+
 .max-w-33 {
     max-width: calc(100% / 3);
 }
