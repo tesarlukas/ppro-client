@@ -6,6 +6,7 @@ import FilterControls from '../components/FilterControls';
 import { FaPlus } from 'react-icons/fa';
 import { UserContext } from '../context';
 import Cookies from 'js-cookie';
+import { getMoviesByGenre, searchMoviesByName } from '../shared/api';
 
 export const FilmWorks: React.FC = () => {
     const [filmworks, setFilmWorks] = useState<Page<FilmWork>>();
@@ -40,14 +41,35 @@ export const FilmWorks: React.FC = () => {
         return res;
     };
 
+    const handleGenreClick = async (id: number): void => {
+        const data: Page<FilmWork> = await getMoviesByGenre(id);
+
+        if (data === undefined)
+            throw new Error('Couldn\'t fetch movies by genres!');
+
+        setFilmWorks(data);
+    };
+
+    const handleSearch = async (query: string) => {
+        const data: Page<FilmWork> = await searchMoviesByName(query);
+
+        if (data === undefined)
+            throw new Error('Couldn\'t fetch movies by name!');
+
+        setFilmWorks(data);
+    };
+
     useEffect(() => {
         getFilmWorks();
     }, []);
 
     return (
         <div className="layout relative">
-            <FilterControls />
-            <div className="flex flex-row flex-wrap gap-x-48 gap-y-48 pt-24 justify-center">
+            <FilterControls
+                onGenreClick={handleGenreClick}
+                onSearchChange={handleSearch}
+            />
+            <div className="flex flex-row flex-wrap gap-x-48 gap-y-48 mt-24 justify-center">
                 {filmworks?.content.map((value: FilmWork) => {
                     return (
                         <Link key={value.id} to={`/filmwork/${value.id}`}>

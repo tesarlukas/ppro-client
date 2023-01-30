@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import TextField from './TextField';
 import {
+    AuthenticationResponse,
     AuthUser,
     DecodedToken,
     LoginCredentials,
@@ -28,13 +29,9 @@ export const LoginForm: React.FC = () => {
             username: username.value,
         };
 
-        type data = {
-            token: string;
-        };
-
         try {
             const res = await tryLogin(credentials);
-            const data: data = await res.json();
+            const data: AuthenticationResponse = await res.json();
             Cookies.set('auth', data.token);
 
             if (data.token) {
