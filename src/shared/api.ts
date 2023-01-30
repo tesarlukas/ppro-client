@@ -292,3 +292,19 @@ export const removeFromFinished = async (id: number | undefined) => {
 
     return res;
 };
+
+export const sendUserProfileImg = async (userId: number, file: File) => {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+
+    await fetch(
+        `${import.meta.env.VITE_DEV_API_URL}api/v1/files/imgs/usr/upload/${userId}`,
+        {
+            method: 'POST',
+            body: formData,
+            headers: {
+                Authorization: `Bearer ${Cookies.get('auth')}`,
+            },
+        },
+    );
+}
