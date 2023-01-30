@@ -28,14 +28,7 @@ export const FilmWorkCard: React.FC<{
                 <h2 className="font-bold px-4 py-1 text-xl">{filmwork.name}</h2>
                 <h3 className="font-bold px-4 py-1">
                     {filmwork.genres.map((genre: GenreSimple) => {
-                        return (
-                            <span key={genre.id}>
-                                {genre.name}
-                                {genre.id !== filmwork.genres.length
-                                    ? ', '
-                                    : ''}
-                            </span>
-                        );
+                        return <span key={genre.id}>{genre.name} </span>;
                     })}
                 </h3>
                 <h3 className="px-4 py-2">{filmwork.audienceScore} / 10</h3>

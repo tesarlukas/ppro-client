@@ -59,6 +59,7 @@ export const LoginForm: React.FC = () => {
             onSubmit={handleOnSubmit}
             className="flex flex-col bg-slate-800 p-4 rounded-xl mt-48"
         >
+            <h3 className="text-2xl text-center p-2">Log in</h3>
             <h6>Username</h6>
             <TextField type="text" name="username" />
             <h6>Password</h6>
