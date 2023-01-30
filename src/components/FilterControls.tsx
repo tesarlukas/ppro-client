@@ -39,7 +39,7 @@ const FilterControls: React.FC<FilterControlsProps> = (
     }, []);
 
     return (
-        <div className="z-9 h-11 mt-8 flex flex-row justify-between bg-gray-200 shadow-lg rounded-lg">
+        <div className="z-9 mt-8 flex flex-row justify-between items-center bg-gray-200 shadow-lg rounded-lg p-2 gap-2">
             <div>
                 <button
                     id="dropdownGenresButton"
@@ -91,8 +91,8 @@ const FilterControls: React.FC<FilterControlsProps> = (
                     </ul>
                 </div>
             </div>
-            <div className="flex justify-center">
-                <div className="mb-3 xl:w-96">
+            <div className="flex justify-center items-center">
+                <div className="xl:w-96">
                     <input
                         type="search"
                         onChange={handleChange}
