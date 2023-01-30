@@ -1,33 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { FilmWork } from '../shared/types';
-import { Page } from '../shared/types';
 import EntryList from '../components/EntryList';
-import { removeFromFinished } from '../shared/api';
+import { getUsersHasWatched, removeFromFinished } from '../shared/api';
 
 const FinishedList = () => {
     const { id } = useParams<string>();
     const [filmworks, setFilmWorks] = useState<Array<FilmWork>>([]);
 
-    const getUserFinishedList = async (id: number) => {
-        const res = await fetch(
-            `${import.meta.env.VITE_DEV_API_URL}api/v1/users/has-watched/${id}`,
-        );
-        const data: Page<FilmWork> = await res.json();
-        if (data === undefined)
-            throw new Error('failed to cast data from the response!');
-
+    const getData = async () => {
+        const data = await getUsersHasWatched(Number(id));
         setFilmWorks(data.content);
     };
 
     useEffect(() => {
-        getUserFinishedList(Number(id));
+        getData();
     }, []);
 
     return (
-        <div className="layout w-5/6 mt">
+        <div className="layout w-5/6">
+            <h3 className="text-5xl text-slate-900 text-center p-12">
+                Finished movies
+            </h3>
             <EntryList
                 entries={filmworks}
+                setEntries={setFilmWorks}
                 removeFromFinished={removeFromFinished}
             />
         </div>
