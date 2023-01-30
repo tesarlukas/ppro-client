@@ -23,7 +23,7 @@ const EntryList: React.FC<Props> = ({
     removeFromFinished,
 }: Props) => {
     return (
-        <div className="bg-slate-800 flex flex-wrap flex-col content-center w-full p-4 rounded-xl mt-16 gap-2">
+        <div className="bg-slate-800 flex flex-wrap flex-col content-center w-full p-4 rounded-xl gap-2">
             {entries.length === 0 ? (
                 <div className="flex flex-row flex-wrap items-center bg-slate-900 rounded-xl p-2">
                     <h3 className="text-2xl h-fit p-1">
@@ -54,6 +54,12 @@ const EntryList: React.FC<Props> = ({
                                     onClick={(e) => {
                                         e.preventDefault();
                                         markAsFinished(entry.id);
+                                        setEntries(
+                                            entries.filter(
+                                                (item: FilmWork) =>
+                                                    entry.id !== item.id,
+                                            ),
+                                        );
                                     }}
                                 >
                                     Finished
@@ -67,6 +73,12 @@ const EntryList: React.FC<Props> = ({
                                     onClick={(e) => {
                                         e.preventDefault();
                                         addToPlan(entry.id);
+                                        setEntries(
+                                            entries.filter(
+                                                (item: FilmWork) =>
+                                                    entry.id !== item.id,
+                                            ),
+                                        );
                                     }}
                                 >
                                     Add to plan
@@ -80,6 +92,12 @@ const EntryList: React.FC<Props> = ({
                                     onClick={(e) => {
                                         e.preventDefault();
                                         markAsWatching(entry.id);
+                                        setEntries(
+                                            entries.filter(
+                                                (item: FilmWork) =>
+                                                    entry.id !== item.id,
+                                            ),
+                                        );
                                     }}
                                 >
                                     Mark as watching

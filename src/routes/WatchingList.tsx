@@ -24,6 +24,9 @@ const WatchingList = () => {
 
     return (
         <div className="layout w-5/6 mt">
+            <h3 className="text-5xl text-slate-900 text-center p-12">
+                Currently watching
+            </h3>
             <EntryList
                 entries={filmworks}
                 setEntries={setFilmWorks}
